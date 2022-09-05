@@ -25,7 +25,7 @@
             </div>
             <ng-template #tableInfo>
               <div class="table-responsive">
-                <app-table-info class="e-table">
+                <app-table-info *ngIf="customerList && customerList.length!=0"  class="e-table">
                   <thead>
                     <tr class="table-title">
                       <th class="col-2">Customer ID</th>
@@ -33,7 +33,7 @@
                       <th class="col-2">Second Name</th>
                       <th class="col-2">Last Name</th>
                       <th class="col-2">Role</th>
-                      <th class="col-2">ID Number</th>
+                      <th class="col-2">Nationality Id</th>
                     </tr>
                   </thead>
                   <tbody class="table-body">
@@ -46,13 +46,15 @@
                     ></div>
                     <ng-template #filteredListState>
                       <tr *ngFor="let customer of filteredCustomerList">
-                        <th>{{ customer.id }}</th>
+                        <th><a (click)="getCustomerId(customer)">{{
+                          customer.id
+                        }}</a></th>
                         <td>{{ customer.firstName }}</td>
                         <td>{{ customer.middleName }}</td>
                         <td>{{ customer.lastName }}</td>
                         <td>{{ customer.role }}</td>
                         <!---Backend Simülasyonu, customerid gelecektir-->
-                        <td>{{ customer.id }}</td>
+                        <td>{{ customer.nationalityId }}</td>
                       </tr>
                     </ng-template>
                     <ng-template #otherState>
@@ -67,7 +69,7 @@
                         <td>{{ customer.lastName }}</td>
                         <td>{{ customer.role }}</td>
                         <!---Backend Simülasyonu, customerid gelecektir-->
-                        <td>{{ customer.id }}</td>
+                        <td>{{ customer.nationalityId }}</td>
                       </tr>
                     </ng-template>
                   </tbody>

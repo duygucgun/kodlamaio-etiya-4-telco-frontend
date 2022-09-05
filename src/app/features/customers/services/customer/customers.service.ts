@@ -41,11 +41,10 @@ export class CustomersService {
     this.httpClient.get<Customer[]>(this.apiControllerUrl).subscribe({
       next: (response) => {
         let filteredCustomers = response;
-        if (searchCustomer.id) {
-          filteredCustomers = filteredCustomers.filter(
-            (item) => item.id == searchCustomer.id
-          );
-        }
+        if (searchCustomer.nationalityId) {
+          filteredCustomers = filteredCustomers.filter((item) =>
+            item.nationalityId == searchCustomer.nationalityId);
+        };
         if (searchCustomer.customerId) {
           filteredCustomers = filteredCustomers.filter(
             (item) => item.customerId == searchCustomer.customerId
@@ -73,11 +72,11 @@ export class CustomersService {
               .includes(searchCustomer.firstName.toLowerCase())
           );
         }
-        if (searchCustomer.lastname) {
+        if (searchCustomer.lastName) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
               .lastName!.toLowerCase()
-              .includes(searchCustomer.lastname.toLowerCase())
+              .includes(searchCustomer.lastName.toLowerCase())
           );
         }
         if (searchCustomer.orderNumber) {
