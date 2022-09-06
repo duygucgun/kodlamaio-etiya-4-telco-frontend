@@ -30,6 +30,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -48,6 +49,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="middleName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -66,6 +68,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="lastName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -121,6 +124,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fatherName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -139,6 +143,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="motherName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -157,6 +162,8 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="nationalityId"
+                    maxlength="11"
+                    onKeyPress="if(this.value.length==11) return false;"
                   />
                 </div>
               </div>
@@ -175,17 +182,11 @@
             </button>
           </div>
           <div
-            *ngIf="!profileForm.invalid"
             class="col-12 col-lg-5 d-flex justify-content-lg-end"
           >
             <button etiyaButton="clear" (click)="goNextPage()">NEXT</button>
           </div>
-          <div
-            *ngIf="profileForm.invalid"
-            class="col-12 col-lg-5 d-flex justify-content-lg-end"
-          >
-            <button etiyaButton="clear-disabled" disabled>NEXT</button>
-          </div>
+          
         </div>
       </div>
     </div>
