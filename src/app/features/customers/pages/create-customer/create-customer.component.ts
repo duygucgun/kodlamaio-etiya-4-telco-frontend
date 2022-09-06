@@ -19,6 +19,8 @@ export class CreateCustomerComponent implements OnInit {
   profileForm!: FormGroup;
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
+  isShow: Boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomersService,
@@ -40,14 +42,23 @@ export class CreateCustomerComponent implements OnInit {
       middleName: [this.customer.middleName],
       lastName: [this.customer.lastName, Validators.required],
       birthDate: [this.customer.birthDate, Validators.required],
-      gender: [this.customer.gender ?? 'Female', Validators.required],
+      gender: [this.customer.gender ?? '', Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
-      nationalityId: [this.customer.nationalityId, Validators.required, Validators.minLength(11)],
+      nationalityId: [
+        this.customer.nationalityId,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+      ],
     });
   }
+
   goNextPage() {
-    this.customerService.setDemographicInfoToStore(this.profileForm.value);
-    this.router.navigateByUrl('/dashboard/customers/list-address-info');
+    if (this.profileForm.valid) {
+      this.isShow = false;
+      this.customerService.setDemographicInfoToStore(this.profileForm.value);
+      this.router.navigateByUrl('/dashboard/customers/list-address-info');
+    } else {
+      this.isShow = true;
+    }
   }
 }

@@ -27,7 +27,7 @@ export class SideFilterComponent implements OnInit {
       accountNumber: [''],
       gsmNumber: [''],
       firstName: [''],
-      lastname: [''],
+      lastName: [''],
       orderNumber: [''],
     });
   }

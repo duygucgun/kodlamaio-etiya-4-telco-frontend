@@ -43,8 +43,11 @@ export class CustomersService {
         let filteredCustomers = response;
         if (searchCustomer.nationalityId) {
           filteredCustomers = filteredCustomers.filter((item) =>
-            item.nationalityId == searchCustomer.nationalityId);
-        };
+            item.nationalityId
+              ?.toString()
+              .includes(searchCustomer.nationalityId.toString())
+          );
+        }
         if (searchCustomer.customerId) {
           filteredCustomers = filteredCustomers.filter(
             (item) => item.customerId == searchCustomer.customerId
@@ -59,9 +62,12 @@ export class CustomersService {
         }
 
         if (searchCustomer.gsmNumber) {
-          filteredCustomers = filteredCustomers.filter(
-            (item) =>
-               item.contactMedium!.mobilePhone.substr(1,14).split(' ').join('').includes(searchCustomer.gsmNumber)              
+          filteredCustomers = filteredCustomers.filter((item) =>
+            item
+              .contactMedium!.mobilePhone.substr(0, 11)
+              .split(' ')
+              .join('')
+              .includes(searchCustomer.gsmNumber)
           );
         }
 

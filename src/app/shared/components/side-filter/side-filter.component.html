@@ -11,6 +11,7 @@
     <form [formGroup]="searchForm">
       <label class="e-label mt-4">NATIONALITY ID NUMBER</label>
       <input
+        onkeydown="return event.keyCode !== 69"
         type="number"
         etiyaInput="dark"
         formControlName="nationalityId"
@@ -30,6 +31,7 @@
       <label class="e-label">CUSTOMER ID</label>
       <input
         etiyaInput="dark"
+        onkeydown="return event.keyCode !== 69"
         formControlName="customerId"
         onKeyPress="if(this.value.length==100) return false;"
         type="number"
@@ -38,6 +40,7 @@
 
       <label class="e-label">ACCOUNT NUMBER</label>
       <input
+        onkeydown="return event.keyCode !== 69"
         type="number"
         etiyaInput="dark"
         formControlName="accountNumber"
@@ -47,6 +50,7 @@
       <label class="e-label">GSM NUMBER</label>
       <input
         pattern="/^-?\d+\.?\d*$/"
+        onkeydown="return event.keyCode !== 69"
         onKeyPress="if(this.value.length==10) return false;"
         type="number"
         etiyaInput="dark"
@@ -66,12 +70,13 @@
       <input
         type="text"
         etiyaInput="dark"
-        formControlName="lastname"
+        formControlName="lastName"
         #lastName
       />
 
       <label class="e-label">ORDER NUMBER</label>
       <input
+        onkeydown="return event.keyCode !== 69"
         type="number"
         etiyaInput="dark"
         formControlName="orderNumber"

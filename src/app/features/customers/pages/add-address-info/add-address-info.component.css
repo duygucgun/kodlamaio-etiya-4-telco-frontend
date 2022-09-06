@@ -103,3 +103,12 @@
 ::ng-deep .main-box {
   height: auto !important;
 }
+
+.invalid-input {
+  border:2px solid red!important;
+  color:red
+}
+small{
+  font-weight: 200!important;
+  font-size: 15px!important;
+}

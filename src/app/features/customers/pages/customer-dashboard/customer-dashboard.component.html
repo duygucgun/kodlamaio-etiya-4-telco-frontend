@@ -46,7 +46,7 @@
                     ></div>
                     <ng-template #filteredListState>
                       <tr *ngFor="let customer of filteredCustomerList">
-                        <th><a (click)="getCustomerId(customer)">{{
+                        <th><a  (click)="getCustomerId(customer)">{{
                           customer.id
                         }}</a></th>
                         <td>{{ customer.firstName }}</td>

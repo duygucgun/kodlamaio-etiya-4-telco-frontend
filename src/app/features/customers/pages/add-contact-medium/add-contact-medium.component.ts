@@ -13,6 +13,7 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
+  isShow: boolean = false;
   constructor(
     private customersService: CustomersService,
     private router: Router,
@@ -32,9 +33,12 @@ export class AddContactMediumComponent implements OnInit {
       homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        Validators.required,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
       ],
-      fax: [this.customer.contactMedium?.fax, Validators.required],
+      fax: [
+        this.customer.contactMedium?.fax,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+      ],
     });
   }
 
@@ -48,25 +52,29 @@ export class AddContactMediumComponent implements OnInit {
   }
 
   saveCustomer() {
-    this.saveContactMediumToStore();
-    this.customersService.add(this.customer).subscribe({
-      next: (data) => {
-        this.messageService.add({
-          detail: 'Sucsessfully added',
-          severity: 'success',
-          summary: 'Add',
-          key: 'etiya-custom',
-        });
-        this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
-      },
-      error: (err) => {
-        this.messageService.add({
-          detail: 'Error created',
-          severity: 'danger',
-          summary: 'Error',
-          key: 'etiya-custom',
-        });
-      },
-    });
+    if (this.contactForm.valid) {
+      this.saveContactMediumToStore();
+      this.customersService.add(this.customer).subscribe({
+        next: (data) => {
+          this.messageService.add({
+            detail: 'Sucsessfully added',
+            severity: 'success',
+            summary: 'Add',
+            key: 'etiya-custom',
+          });
+          this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+        },
+        error: (err) => {
+          this.messageService.add({
+            detail: 'Error created',
+            severity: 'danger',
+            summary: 'Error',
+            key: 'etiya-custom',
+          });
+        },
+      });
+    } else {
+      this.isShow = true;
+    }
   }
 }
