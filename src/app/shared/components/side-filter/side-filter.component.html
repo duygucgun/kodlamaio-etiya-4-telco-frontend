@@ -11,8 +11,10 @@
     <form [formGroup]="searchForm">
       <label class="e-label mt-4">NATIONALITY ID NUMBER</label>
       <input
-        onkeydown="return event.keyCode !== 69"
-        type="text"
+        max="99999999999"
+        min="10000000000"
+        onkeydown="return event.keyCode !== 69 && event.keyCode !==110 && event.keyCode !==109 && event.keyCode !==190 && event.keyCode !==107 && event.keyCode !==188"
+        type="number"
         etiyaInput="dark"
         formControlName="nationalityId"
         onKeyPress="if(this.value.length==11) return false;"
