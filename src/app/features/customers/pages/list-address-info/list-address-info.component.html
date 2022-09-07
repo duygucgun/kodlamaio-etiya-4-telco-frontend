@@ -37,7 +37,19 @@
               </tr>
               <ng-template #customerAddressList>
                 <tr *ngFor="let address of customer.addresses">
-                  <th>{{ address.city.name }}</th>
+                  <th>
+                    <div>
+                      <button
+                        (click)="selectAddressId(address.id)"
+                        etiyaButton="edit"
+                      ></button>
+                      <button
+                        (click)="selectAddressId(address.id)"
+                        etiyaButton="remove"
+                      ></button>
+                    </div>
+                    {{ address.city.name }}
+                  </th>
                   <td>{{ address.street }}</td>
                   <td>{{ address.flatNumber }}</td>
                   <td>{{ address.description }}</td>

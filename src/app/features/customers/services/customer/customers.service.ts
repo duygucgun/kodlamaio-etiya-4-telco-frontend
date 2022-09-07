@@ -62,10 +62,12 @@ export class CustomersService {
         }
 
         if (searchCustomer.gsmNumber) {
-          filteredCustomers = filteredCustomers.filter(
-            (item) =>
-               item.contactMedium!.mobilePhone.substr(1,14).split(' ').join('').includes(searchCustomer.gsmNumber)
-
+          filteredCustomers = filteredCustomers.filter((item) =>
+            item
+              .contactMedium!.mobilePhone.substr(1, 14)
+              .split(' ')
+              .join('')
+              .includes(searchCustomer.gsmNumber)
           );
         }
 
@@ -107,8 +109,12 @@ export class CustomersService {
     this.store.dispatch(setDemographicInfo(props));
   }
 
-  addAddressInfoToStore(props: Address) {
-    this.store.dispatch(addAddressInfo(props));
+  addAddressInfoToStore(props: Address, customers: Customer) {
+    const newAddress: Address = {
+      ...props,
+      id: (customers.addresses?.length || 0) + 1,
+    };
+    this.store.dispatch(addAddressInfo(newAddress));
   }
 
   setContactMediumInfoToStore(props: ContactMedium) {
