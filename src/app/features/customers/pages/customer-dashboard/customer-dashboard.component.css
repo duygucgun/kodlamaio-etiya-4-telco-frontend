@@ -24,8 +24,12 @@
 
 ::ng-deep .table.e-table .table-body tr th a {
   cursor: pointer;
+  color: blue;
 }
 
+.table-title th:first-child{
+  color: blue!important;
+}
 
 ::ng-deep .e-btn-new-address{
   border: 1px solid white;
