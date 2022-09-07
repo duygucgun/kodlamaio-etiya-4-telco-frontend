@@ -13,7 +13,7 @@
       <input
         max="99999999999"
         min="10000000000"
-        onkeydown="return event.keyCode !== 69 && event.keyCode !==110 && event.keyCode !==109 && event.keyCode !==190 && event.keyCode !==107 && event.keyCode !==188"
+        (keypress)="isValid($event)"
         type="number"
         etiyaInput="dark"
         formControlName="nationalityId"
@@ -32,18 +32,19 @@
 
       <label class="e-label">CUSTOMER ID</label>
       <input
-        onkeydown="return event.keyCode !== 69 && event.keyCode !==110 && event.keyCode !==109 && event.keyCode !==190 && event.keyCode !==107 && event.keyCode !==188"
+        (keypress)="isValid($event)"
         min="1"
+        max="9999999999"
         etiyaInput="dark"
         formControlName="customerId"
-        onKeyPress="if(this.value.length==100) return false;"
+        onKeyPress="if(this.value.length==10) return false;"
         type="number"
         #customerId
       />
 
       <label class="e-label">ACCOUNT NUMBER</label>
       <input
-        onkeydown="return event.keyCode !== 69 && event.keyCode !==110 && event.keyCode !==109 && event.keyCode !==190 && event.keyCode !==107 && event.keyCode !==188"
+        (keypress)="isValid($event)"
         type="number"
         min="1"
         etiyaInput="dark"
@@ -56,9 +57,8 @@
         max="9999999999"
         min="1"
         placeholder="+90"
-        pattern="/^-?\d+\.?\d*$/"
-        onkeydown="return event.keyCode !== 69 && event.keyCode !==110 && event.keyCode !==109 && event.keyCode !==190 && event.keyCode !==107 && event.keyCode !==188"
-        onKeyPress="if(this.value.length==10) return false;"
+        (keypress)="isValid($event)"
+        onKeyPress="if(this.value.length==13) return false;"
         type="number"
         etiyaInput="dark"
         formControlName="gsmNumber"
@@ -70,6 +70,7 @@
         type="text"
         etiyaInput="dark"
         formControlName="firstName"
+        maxlength="50"
         #firstName
       />
 
@@ -83,7 +84,7 @@
 
       <label class="e-label">ORDER NUMBER</label>
       <input
-        onkeydown="return event.keyCode !== 69 && event.keyCode !==110 && event.keyCode !==109 && event.keyCode !==190 && event.keyCode !==107 && event.keyCode !==188"
+        (keypress)="isValid($event)"
         min="1"
         type="number"
         etiyaInput="dark"
@@ -93,8 +94,9 @@
     </form>
   </div>
   <div class="e-btn-container">
-    <button type="button"
-    [disabled]="
+    <button
+      type="button"
+      [disabled]="
         nationalityId.value.length === 0 &&
         customerId.value.length === 0 &&
         accountNumber.value.length === 0 &&
@@ -102,7 +104,12 @@
         firstName.value.length === 0 &&
         lastName.value.length === 0 &&
         orderNumber.value.length === 0
-      "etiyaButton="clear" (click)="clear()">CLEAR</button>
+      "
+      etiyaButton="clear"
+      (click)="clear()"
+    >
+      CLEAR
+    </button>
     <button
       type="button"
       etiyaButton="search"

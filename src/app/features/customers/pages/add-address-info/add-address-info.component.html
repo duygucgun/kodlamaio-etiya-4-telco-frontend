@@ -36,10 +36,10 @@
                             isShow && addressForm.controls['city'].errors
                         }"
                       >
-                        <option selected disabled hidden [value]="0">
+                        <option selected disabled hidden value="city">
                           Choose a city
                         </option>
-                        <option *ngFor="let city of cityList" [value]="city.id">
+                        <option *ngFor="let city of cityList" [ngValue]="city">
                           {{ city.name }}
                         </option>
                       </select>
@@ -49,9 +49,9 @@
                     *ngIf="isShow && addressForm.controls['city'].errors"
                     id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 380px; margin-top: -13px"
+                    style="color: red; margin-left: 380px; margin-top: 11px"
                   >
-                    Please fill in the required fields
+                    Mandatory fields can not left blank!
                   </small>
                 </div>
               </div>
@@ -77,9 +77,9 @@
                     *ngIf="isShow && addressForm.controls['flatNumber'].errors"
                     id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 380px; margin-top: -13px"
+                    style="color: red; margin-left: 550px; margin-top: -13px"
                   >
-                    Please fill in the required fields
+                    Mandatory fields can not left blank!
                   </small>
                 </div>
               </div>
@@ -108,7 +108,7 @@
                     class="p-error block ng-invalid ng-dirty"
                     style="color: red; margin-left: 380px; margin-top: -13px"
                   >
-                    Please fill in the required fields
+                    Mandatory fields can not left blank!
                   </small>
                 </div>
               </div>
@@ -134,16 +134,21 @@
                     *ngIf="isShow && addressForm.controls['description'].errors"
                     id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 380px; margin-top: -13px"
+                    style="color: red; margin-left: 500px; margin-top: -13px"
                   >
-                    Please fill in the required fields
+                    Mandatory fields can not left blank!
                   </small>
                 </div>
               </div>
             </div>
-            <div class="row mt-2 d-flex justify-content-center">
+            <div class="row mt-2 d-flex justify-content-between">
               <div class="col-2">
-                <button etiyaButton="clear" (click)="save()">SAVE</button>
+                <button etiyaButton="clear" (click)="cancelButton()">
+                  CANCEL
+                </button>
+              </div>
+              <div class="col-2">
+                <button etiyaButton="clear" (click)="addAddress()">SAVE</button>
               </div>
             </div>
           </form>

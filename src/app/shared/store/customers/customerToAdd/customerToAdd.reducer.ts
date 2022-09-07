@@ -46,6 +46,7 @@ export const customerToAddReducer = createReducer(
     return newState;
   }),
   on(updateAddressInfo, (state, action) => {
+    console.log(action);
     const newState: Customer = {
       ...state,
       addresses: [

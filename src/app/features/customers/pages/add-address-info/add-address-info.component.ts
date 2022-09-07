@@ -26,8 +26,8 @@ export class AddAddressInfoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private customersService: CustomersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private cityService: CityService
+    private cityService: CityService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.createCustomerModel$ = this.customersService.customerToAddModel$;
   }
@@ -55,16 +55,16 @@ export class AddAddressInfoComponent implements OnInit {
       flatNumber: [this.addressList?.flatNumber || '', Validators.required],
       description: [this.addressList?.description || '', Validators.required],
     });
-    console.log(this.addressForm.get('city')?.value);
   }
+
   save() {
-    if (this.selectedAddressId) {
-      console.log(this.selectedAddressId + 'duyguuu');
-      this.updateAddress();
-    } else {
+    if (this.selectedAddressId == undefined) {
       this.addAddress();
+    } else {
+      this.updateAddress();
     }
   }
+
   addAddress() {
     if (this.addressForm.valid) {
       const addressToAdd: Address = {
@@ -107,11 +107,15 @@ export class AddAddressInfoComponent implements OnInit {
       this.getParams();
     });
   }
+
   getAddressListInfo() {
     console.log(this.customer.addresses);
     this.customer.addresses?.forEach((address) => {
       if (address.id == this.selectedAddressId) this.addressList = address;
       this.createAddressForm();
     });
+  }
+  cancelButton() {
+    this.router.navigateByUrl('/dashboard/customers/list-address-info');
   }
 }

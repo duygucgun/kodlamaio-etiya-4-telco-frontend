@@ -22,7 +22,7 @@ export class SideFilterComponent implements OnInit {
 
   createSearchForm(): void {
     this.searchForm = this.formBuilder.group({
-      nationalityId: ['',Validators.pattern("^[0-9]*$")],
+      nationalityId: ['', Validators.pattern('^[0-9]*$')],
       customerId: [''],
       accountNumber: [''],
       gsmNumber: [''],
@@ -32,19 +32,27 @@ export class SideFilterComponent implements OnInit {
     });
   }
 
-  search() {let nationalityId = parseInt(this.searchForm.value.nationalityId);
+  search() {
+    let nationalityId = parseInt(this.searchForm.value.nationalityId);
     const newSearchForm = {
       ...this.searchForm.value,
       nationalityId: nationalityId,
     };
-    this.customersService
-      .getListByFilter(newSearchForm)
-      .subscribe((data) => {
-        this.filteredData.emit(data);
-        this.clear()
-      });
+    this.customersService.getListByFilter(newSearchForm).subscribe((data) => {
+      this.filteredData.emit(data);
+      this.clear();
+    });
   }
   clear() {
     this.createSearchForm();
+  }
+  isValid(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }

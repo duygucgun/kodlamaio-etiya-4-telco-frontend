@@ -29,15 +29,24 @@ export class AddContactMediumComponent implements OnInit {
   }
   createFormContactMedium() {
     this.contactForm = this.formBuilder.group({
-      email: [this.customer.contactMedium?.email, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]], //validators.email
-      homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
+      email: [
+        this.customer.contactMedium?.email,
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ],
+      ], //validators.email
+      homePhone: [
+        this.customer.contactMedium?.homePhone,
+        [Validators.required, Validators.pattern('^[0-9]{10}$')],
+      ],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+        [Validators.pattern('^[0-9]{10}$'), Validators.required],
       ],
       fax: [
         this.customer.contactMedium?.fax,
-        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+        [Validators.pattern('^[0-9]{10}$'), Validators.required],
       ],
     });
   }
@@ -76,5 +85,14 @@ export class AddContactMediumComponent implements OnInit {
     } else {
       this.isShow = true;
     }
+  }
+  isValid(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }

@@ -65,7 +65,7 @@ export class CustomersService {
         if (searchCustomer.gsmNumber) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
-              .contactMedium!.mobilePhone.substr(1, 14)
+              .contactMedium!.mobilePhone.substr(1, 17)
               .split(' ')
               .join('')
               .includes(searchCustomer.gsmNumber)
