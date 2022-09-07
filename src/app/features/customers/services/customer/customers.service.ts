@@ -2,6 +2,7 @@ import {
   addAddressInfo,
   setContactMediumInfo,
   setDemographicInfo,
+  updateAddressInfo,
 } from '../../../../shared/store/customers/customerToAdd/customerToAdd.actions';
 import { Customer } from './../../models/customer';
 import { map, Observable, Subject } from 'rxjs';
@@ -115,6 +116,10 @@ export class CustomersService {
       id: (customers.addresses?.length || 0) + 1,
     };
     this.store.dispatch(addAddressInfo(newAddress));
+  }
+
+  updateAddressInfoToStore(props: Address, customers: Customer) {
+    this.store.dispatch(updateAddressInfo(props));
   }
 
   setContactMediumInfoToStore(props: ContactMedium) {

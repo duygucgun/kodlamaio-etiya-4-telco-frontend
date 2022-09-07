@@ -17,3 +17,7 @@ export const setContactMediumInfo = createAction(
   '[CustomerToAdd] Set ContactMedium Info',
   props<ContactMedium>()
 );
+export const updateAddressInfo = createAction(
+  '[CustomerToAdd] Update Address Info',
+  props<Address>()
+);

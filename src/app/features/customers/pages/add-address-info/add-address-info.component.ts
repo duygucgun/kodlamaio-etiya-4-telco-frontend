@@ -59,6 +59,7 @@ export class AddAddressInfoComponent implements OnInit {
   }
   save() {
     if (this.selectedAddressId) {
+      console.log(this.selectedAddressId + 'duyguuu');
       this.updateAddress();
     } else {
       this.addAddress();
@@ -92,7 +93,7 @@ export class AddAddressInfoComponent implements OnInit {
           (city) => city.id == this.addressForm.value.city
         ),
       };
-      this.customersService.addAddressInfoToStore(
+      this.customersService.updateAddressInfoToStore(
         addressToUpdate,
         this.customer
       );

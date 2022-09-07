@@ -5,6 +5,7 @@ import {
   addAddressInfo,
   setContactMediumInfo,
   setDemographicInfo,
+  updateAddressInfo,
 } from './customerToAdd.actions';
 
 const initialState: Customer = {
@@ -41,6 +42,19 @@ export const customerToAddReducer = createReducer(
     console.log('state:', state);
     console.log('action:', action);
     const newState: Customer = { ...state, contactMedium: action };
+    console.log('newstate:', newState);
+    return newState;
+  }),
+  on(updateAddressInfo, (state, action) => {
+    const newState: Customer = {
+      ...state,
+      addresses: [
+        ...(state.addresses?.find((a) => {
+          a.id = action.id;
+        }) as unknown as Address[]),
+        action,
+      ],
+    };
     console.log('newstate:', newState);
     return newState;
   })
