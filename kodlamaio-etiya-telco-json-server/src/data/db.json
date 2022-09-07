@@ -2565,20 +2565,6 @@
           ]
         }
       ]
-    },
-    {
-      "customerId": 9999,
-      "role": "individual",
-      "addresses": [],
-      "contactMedium": {
-        "email": "dsada@.com",
-        "homePhone": 5464564654,
-        "mobilePhone": 5454564564,
-        "fax": 5465465456,
-        "type": "[CustomerToAdd] Set ContactMedium Info"
-      },
-      "billingAccounts": [],
-      "id": 21
     }
   ],
   "offers": [
