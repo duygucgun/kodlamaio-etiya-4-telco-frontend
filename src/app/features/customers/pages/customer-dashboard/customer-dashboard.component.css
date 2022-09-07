@@ -24,11 +24,11 @@
 
 ::ng-deep .table.e-table .table-body tr th a {
   cursor: pointer;
-  color: blue;
+  color: #f58220;
 }
 
 .table-title th:first-child{
-  color: blue!important;
+  color: #f58220!important;
 }
 
 ::ng-deep .e-btn-new-address{

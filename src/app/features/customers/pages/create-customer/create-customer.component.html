@@ -214,6 +214,7 @@
                 >
                   <input
                     type="number"
+                    max="99999999999"
                     etiyaInput="dark"
                     formControlName="nationalityId"
                     onKeyPress="if(this.value.length==11) return false;"
@@ -229,7 +230,8 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 380px; margin-top: -20px"
                 >
-                  Please fill in the required fields
+                Mobile phone number cannot be less than 11 digits!
+
                 </small>
               </div>
             </div>
