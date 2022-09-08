@@ -10,6 +10,7 @@ import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
 import { Router } from '@angular/router';
 import { CustomerDemographicInfo } from '../../models/customerDemographicInfo';
+import { MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: './create-customer.component.html',
@@ -24,7 +25,8 @@ export class CreateCustomerComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomersService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.createCustomerModel$ = this.customerService.customerToAddModel$;
   }
@@ -52,11 +54,30 @@ export class CreateCustomerComponent implements OnInit {
     });
   }
 
+  getCustomers(id: number) {
+    this.customerService.getList().subscribe((response) => {
+      let matchCustomer = response.find((item) => {
+        return item.nationalityId == id;
+      });
+      if (matchCustomer) {
+        this.messageService.add({
+          detail: 'This user already exist',
+          severity: 'info',
+          summary: 'Warning',
+          key: 'etiya-custom',
+          sticky: true,
+        });
+      } else {
+        this.customerService.setDemographicInfoToStore(this.profileForm.value);
+        this.router.navigateByUrl('/dashboard/customers/list-address-info');
+      }
+    });
+  }
+
   goNextPage() {
     if (this.profileForm.valid) {
       this.isShow = false;
-      this.customerService.setDemographicInfoToStore(this.profileForm.value);
-      this.router.navigateByUrl('/dashboard/customers/list-address-info');
+      this.getCustomers(this.profileForm.value.nationalityId);
     } else {
       this.isShow = true;
     }
