@@ -39,7 +39,7 @@ export class ListAddressInfoComponent implements OnInit {
     if (this.customer.addresses && this.customer.addresses?.length <= 1) {
       this.messageService.add({
         detail:
-          'The address that you want to delete is a default address. Please, change default address then try again.',
+          'The address that you want to delete is a default address.',
         key: 'etiya-warn',
       });
       return;

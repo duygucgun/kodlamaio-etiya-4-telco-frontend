@@ -19,7 +19,7 @@ export class CreateCustomerComponent implements OnInit {
   profileForm!: FormGroup;
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
-  isShow: Boolean = false;
+  isShow: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

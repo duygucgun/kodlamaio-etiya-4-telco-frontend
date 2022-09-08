@@ -31,14 +31,26 @@
             <div class="row d-flex justify-space-between align-items-center">
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="first-name">First Name:</label>
+                  <label class="col-5" for="first-name">First Name*:</label>
                   <input
                     class="col-7"
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && updateCustomerForm.controls['firstName'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && updateCustomerForm.controls['firstName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Mandatory fields can not left blank!
+                </small>
               </div>
               <div class="col-6 form-group">
                 <div class="form-group">
@@ -54,18 +66,30 @@
 
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="lastName">Last Name:</label>
+                  <label class="col-5" for="lastName">Last Name*:</label>
                   <input
                     class="col-7"
                     type="text "
                     etiyaInput="dark"
                     formControlName="lastName"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && updateCustomerForm.controls['lastName'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && updateCustomerForm.controls['lastName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Mandatory fields can not left blank!
+                </small>
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="birthDate">Birth Name:</label>
+                  <label class="col-5" for="birthDate">Birth Date*:</label>
                   <input
                     class="col-7"
                     type="text"
@@ -73,23 +97,45 @@
                     formControlName="birthDate"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && updateCustomerForm.controls['birthDate'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Mandatory fields can not left blank!
+                </small>
               </div>
+
+
               <div class="col-6">
                 <div
                   class="form-group d-flex justify-content-lg-start align-items-center"
                 >
-                  <label class="col-5" for="gender">Gender:</label>
+                  <label class="col-5" for="gender">Gender*:</label>
                   <div class="e-dropdown col-7 p-0">
                     <select
                       name="gender"
                       id="gender"
                       class="p-2"
                       formControlName="gender"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && updateCustomerForm.controls['gender'].errors
+                      }"
                     >
                       <option selected value="Female">Female</option>
-                      <option value="Erkek">Erkek</option>
+                      <option value="Male">Male</option>
                     </select>
                   </div>
+                  <small
+                  *ngIf="isShow && updateCustomerForm.controls['gender'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Mandatory fields can not left blank!
+                </small>
                 </div>
               </div>
 
@@ -117,14 +163,30 @@
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="nationalId">Nationality ID:</label>
+                  <label class="col-5" for="nationalId">Nationality ID*:</label>
                   <input
+                  min="10000000000"
+                  max="99999999999"
+                  (keypress)="isValid($event)"
+                    onKeyPress="if(this.value.length==11) return false;"
                     class="col-7"
                     type="text"
                     etiyaInput="dark"
                     formControlName="nationalityId"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && updateCustomerForm.controls['nationalityId'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && updateCustomerForm.controls['nationalityId'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 200px; margin-top: -20px"
+                >
+                  Nationality ID cannot be less than 11 digits!
+                </small>
               </div>
             </div>
           </div>
@@ -133,7 +195,7 @@
               <div class="col-6 d-flex justify-content-lg-start">
                 <button
                   etiyaButton="clear"
-                  routerLink="/dashboard/customers/customer-info"
+                  routerLink="/dashboard/customers/customer-info/{{customer.id}}"
                 >
                   CANCEL
                 </button>

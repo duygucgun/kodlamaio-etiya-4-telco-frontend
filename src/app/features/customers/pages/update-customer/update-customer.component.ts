@@ -14,6 +14,7 @@ export class UpdateCustomerComponent implements OnInit {
   updateCustomerForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
+  isShow: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,9 +35,11 @@ export class UpdateCustomerComponent implements OnInit {
       lastName: [this.customer.lastName, Validators.required],
       birthDate: [this.customer.birthDate, Validators.required],
       gender: [this.customer.gender, Validators.required],
-      fatherName: [this.customer.fatherName, Validators.required],
-      motherName: [this.customer.motherName, Validators.required],
-      nationalityId: [this.customer.nationalityId, Validators.required],
+      fatherName: [this.customer.fatherName],
+      motherName: [this.customer.motherName],
+      nationalityId: [this.customer.nationalityId,
+         [Validators.pattern('^[0-9]{11}$'),Validators.required ]
+        ],
     });
   }
 
@@ -56,16 +59,35 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
+
+
+
+
+
+
+  // goNextPage() {
+  //   if (this.updateCustomerForm.valid) {
+  //     this.isShow = false;
+  //     this.customerService.setDemographicInfoToStore(this.updateCustomerForm.value);
+  //     this.router.navigateByUrl('/dashboard/customers/list-address-info');
+  //   } else {
+  //     this.isShow = true;
+  //   }
+  // }
+
   update() {
+
     if (this.updateCustomerForm.invalid) {
-      this.messageService.add({
-        detail: 'Please fill required areas',
-        severity: 'danger',
-        summary: 'Error',
-        key: 'etiya-custom',
-      });
+      if (this.updateCustomerForm.valid) {
+        this.isShow = false;
+        this.customerService.setDemographicInfoToStore(this.updateCustomerForm.value);
+        this.router.navigateByUrl('/dashboard/customers/list-address-info');
+      } else {
+        this.isShow = true;
+      }
       return;
     }
+
     const customer: Customer = Object.assign(
       { id: this.customer.id },
       this.updateCustomerForm.value
@@ -83,5 +105,15 @@ export class UpdateCustomerComponent implements OnInit {
         });
       }, 1000);
     });
+  }
+
+  isValid(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }
