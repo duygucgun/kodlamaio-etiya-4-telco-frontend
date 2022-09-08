@@ -121,14 +121,17 @@
                     "
                     id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 400px; margin-top: 5px"
+                    style="color: red; margin-left: 470px; margin-top: 5px"
                   >
-                    Requirements field can not be left blank
+                  Mandatory fields can not left blank!
                   </small>
                 </div>
               </div>
             </div>
-            <div class="row mt-2 d-flex justify-content-center">
+            <div class="row mt-2 d-flex justify-content-between">
+              <div class="col-2">
+                <button etiyaButton="clear" (click)="cancel()">CANCEL</button>
+              </div>
               <div class="col-2">
                 <button etiyaButton="clear" (click)="save()">SAVE</button>
               </div>

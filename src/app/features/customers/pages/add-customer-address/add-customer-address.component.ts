@@ -107,6 +107,11 @@ export class AddCustomerAddressComponent implements OnInit {
       this.isShow = true;
     }
   }
+  cancel(){
+    this.router.navigateByUrl(
+      `/dashboard/customers/customer-address/${this.selectedCustomerId}`
+    )
+  }
 
   add() {
     const addressToAdd: Address = {
