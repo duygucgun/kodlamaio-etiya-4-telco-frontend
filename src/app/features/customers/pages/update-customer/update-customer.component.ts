@@ -37,9 +37,10 @@ export class UpdateCustomerComponent implements OnInit {
       gender: [this.customer.gender, Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
-      nationalityId: [this.customer.nationalityId,
-         [Validators.pattern('^[0-9]{11}$'),Validators.required ]
-        ],
+      nationalityId: [
+        this.customer.nationalityId,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+      ],
     });
   }
 
@@ -59,12 +60,6 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
   // goNextPage() {
   //   if (this.updateCustomerForm.valid) {
   //     this.isShow = false;
@@ -76,11 +71,12 @@ export class UpdateCustomerComponent implements OnInit {
   // }
 
   update() {
-
     if (this.updateCustomerForm.invalid) {
       if (this.updateCustomerForm.valid) {
         this.isShow = false;
-        this.customerService.setDemographicInfoToStore(this.updateCustomerForm.value);
+        this.customerService.setDemographicInfoToStore(
+          this.updateCustomerForm.value
+        );
         this.router.navigateByUrl('/dashboard/customers/list-address-info');
       } else {
         this.isShow = true;
@@ -92,19 +88,21 @@ export class UpdateCustomerComponent implements OnInit {
       { id: this.customer.id },
       this.updateCustomerForm.value
     );
-    this.customerService.update(customer, this.customer).subscribe(() => {
-      setTimeout(() => {
-        this.router.navigateByUrl(
-          `/dashboard/customers/customer-info/${customer.id}`
-        );
-        this.messageService.add({
-          detail: 'Sucsessfully updated',
-          severity: 'success',
-          summary: 'Update',
-          key: 'etiya-custom',
-        });
-      }, 1000);
-    });
+    this.customerService
+      .updateDemographicInfo(customer, this.customer)
+      .subscribe(() => {
+        setTimeout(() => {
+          this.router.navigateByUrl(
+            `/dashboard/customers/customer-info/${customer.id}`
+          );
+          this.messageService.add({
+            detail: 'Sucsessfully updated',
+            severity: 'success',
+            summary: 'Update',
+            key: 'etiya-custom',
+          });
+        }, 1000);
+      });
   }
 
   isValid(event: any): boolean {

@@ -109,8 +109,10 @@
                 >
                   <input
                     type="date"
+                    (change)="isBirthdayValid($event)"
                     etiyaInput="dark"
                     formControlName="birthDate"
+                    [max]="maxDate"
                     [ngClass]="{
                       'invalid-input':
                         isShow && profileForm.controls['birthDate'].errors
@@ -121,9 +123,9 @@
                   *ngIf="isShow && profileForm.controls['birthDate'].errors"
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 400px; margin-top: -20px"
+                  style="color: red; margin-left: 380px; margin-top: -20px"
                 >
-                  Mandatory fields can not left blank!
+                  Please fill in the required fields
                 </small>
               </div>
             </div>
@@ -232,7 +234,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: -20px"
                 >
-                  Nationality Id cannot be less than 11 digits!
+                  Please fill in the required fields
                 </small>
               </div>
             </div>

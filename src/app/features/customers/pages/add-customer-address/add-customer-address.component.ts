@@ -19,6 +19,7 @@ export class AddCustomerAddressComponent implements OnInit {
   customer!: Customer;
   addressToUpdate!: Address;
   cityList!: City[];
+  isShow: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -69,7 +70,10 @@ export class AddCustomerAddressComponent implements OnInit {
 
   createAddressForm() {
     this.addressForm = this.formBuilder.group({
-      city: [this.addressToUpdate?.city.id || 0, Validators.required],
+      city: [
+        this.addressToUpdate?.city.id || 0,
+        [Validators.required, Validators.min(1)],
+      ],
       street: [this.addressToUpdate?.street || '', Validators.required],
       flatNumber: [this.addressToUpdate?.flatNumber || '', Validators.required],
       description: [
@@ -86,8 +90,22 @@ export class AddCustomerAddressComponent implements OnInit {
   }
 
   save() {
-    if (this.addressToUpdate === undefined) this.add();
-    else this.update();
+    if (this.addressForm.valid) {
+      this.isShow = false;
+      if (this.addressToUpdate === undefined) {
+        this.add();
+        this.router
+          .navigateByUrl(`/dashboard/customers/customer-address/${this.selectedCustomerId})
+        }`);
+      } else {
+        this.update();
+        this.router.navigateByUrl(
+          `/dashboard/customers/customer-address/${this.selectedCustomerId}`
+        );
+      }
+    } else {
+      this.isShow = true;
+    }
   }
 
   add() {
@@ -111,5 +129,11 @@ export class AddCustomerAddressComponent implements OnInit {
     this.customerService
       .updateAddress(addressToUpdate, this.customer)
       .subscribe();
+  }
+
+  closeIconRoute() {
+    this.router.navigateByUrl(
+      `/dashboard/customers/customer-address/${this.selectedCustomerId}`
+    );
   }
 }

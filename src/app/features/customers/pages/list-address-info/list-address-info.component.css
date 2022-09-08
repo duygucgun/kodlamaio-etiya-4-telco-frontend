@@ -34,3 +34,18 @@
 .e-btn-new-address {
   margin-left: 20px;
 }
+::ng-deep .p-dialog{
+  background-color: #2a5183 !important;
+
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content{
+  color: #2a5183;
+  font-weight: 700;
+  font-family: 'Anybody';
+
+}
+.header{
+  color:#f58220;
+  font-weight: 900;
+}
