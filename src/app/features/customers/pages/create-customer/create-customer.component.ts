@@ -21,6 +21,7 @@ export class CreateCustomerComponent implements OnInit {
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
   isShow: boolean = false;
+  maxDate = '2004-08-08';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -88,6 +89,23 @@ export class CreateCustomerComponent implements OnInit {
     const char = String.fromCharCode(event.which ? event.which : event.keyCode);
     if (pattern.test(char)) return true;
 
+    event.preventDefault();
+    return false;
+  }
+  isBirthdayValid(event: any): boolean {
+    const now = new Date();
+    const inputDate = new Date(event.target.value);
+    if (
+      inputDate.getTime() -
+        new Date(
+          now.getFullYear() - 18,
+          now.getMonth(),
+          now.getDay()
+        ).getTime() >=
+      0
+    )
+      return true;
+    console.log('18 den büyük');
     event.preventDefault();
     return false;
   }
