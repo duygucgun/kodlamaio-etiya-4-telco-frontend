@@ -190,14 +190,23 @@
                 </div>
                 <small
                   *ngIf="
-                    isShow &&
-                    updateCustomerForm.controls['nationalityId'].errors
+                  isShow && updateCustomerForm.controls['nationalityId'].errors?.['required']
                   "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 200px; margin-top: -20px"
                 >
                   Nationality ID cannot be less than 11 digits!
+                </small>
+                <small
+                  *ngIf="
+                    isShow && updateCustomerForm.controls['nationalityId'].errors?.['pattern']
+                  "
+                  id="nationalityId-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  etiyaError="error-text"
+                >
+                  You must entered 11 digits
                 </small>
               </div>
             </div>
