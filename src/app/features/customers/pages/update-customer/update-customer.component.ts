@@ -73,7 +73,7 @@ export class UpdateCustomerComponent implements OnInit {
     this.customerService.update(customer, this.customer).subscribe(() => {
       setTimeout(() => {
         this.router.navigateByUrl(
-          `/dashboard/customers/customer-address/${customer.id}`
+          `/dashboard/customers/customer-info/${customer.id}`
         );
         this.messageService.add({
           detail: 'Sucsessfully updated',
