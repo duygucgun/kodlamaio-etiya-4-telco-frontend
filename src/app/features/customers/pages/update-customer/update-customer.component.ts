@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +16,9 @@ export class UpdateCustomerComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   isShow: boolean = false;
+  today: Date = new Date();
+  under18: Boolean = false;
+  futureDate: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,11 +33,19 @@ export class UpdateCustomerComponent implements OnInit {
   }
 
   createFormUpdateCustomer() {
+    console.log(this.customer.birthDate);
+    let bDate = new Date();
+    if (this.customer.birthDate) {
+      bDate = new Date(this.customer.birthDate);
+    }
     this.updateCustomerForm = this.formBuilder.group({
       firstName: [this.customer.firstName, Validators.required],
-      middleName: [this.customer.middleName, Validators.required],
+      middleName: [this.customer.middleName],
       lastName: [this.customer.lastName, Validators.required],
-      birthDate: [this.customer.birthDate, Validators.required],
+      birthDate: [
+        formatDate(new Date(bDate), 'yyyy-MM-dd', 'en'),
+        Validators.required,
+      ],
       gender: [this.customer.gender, Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
@@ -42,6 +54,15 @@ export class UpdateCustomerComponent implements OnInit {
         [Validators.pattern('^[0-9]{11}$'), Validators.required],
       ],
     });
+  }
+  onDateChange(event: any) {
+    let date = new Date(event.target.value);
+    if (date.getFullYear() > this.today.getFullYear()) {
+      this.updateCustomerForm.get('birthDate')?.setValue('');
+      this.futureDate = true;
+    } else {
+      this.futureDate = false;
+    }
   }
 
   getCustomerById() {
@@ -101,6 +122,15 @@ export class UpdateCustomerComponent implements OnInit {
       });
       return;
     }
+    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    let age = this.today.getFullYear() - date.getFullYear();
+    if (age < 18) {
+      this.under18 = true;
+      return;
+    } else {
+      this.under18 = false;
+    }
+
     if (
       this.updateCustomerForm.value.nationalityId ===
       this.customer.nationalityId
@@ -108,6 +138,7 @@ export class UpdateCustomerComponent implements OnInit {
       this.updateCustomer();
     else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
   }
+
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
       let matchCustomer = response.find((item) => {

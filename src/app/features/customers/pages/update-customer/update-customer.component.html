@@ -97,20 +97,43 @@
                   <label class="col-5" for="birthDate">Birth Date*:</label>
                   <input
                     class="col-7"
-                    type="text"
+                    type="date"
                     etiyaInput="dark"
                     formControlName="birthDate"
+                    [max]="today | date: 'yyyy-MM-dd'"
+                    (blur)="onDateChange($event)"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerForm.controls['birthDate'].errors
+                    }"
                   />
                 </div>
                 <small
                   *ngIf="
-                    isShow && updateCustomerForm.controls['birthDate'].errors
+                    isShow &&
+                    updateCustomerForm.controls['birthDate'].errors &&
+                    !futureDate &&
+                    !under18
                   "
-                  id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 220px; margin-top: -20px"
                 >
-                  Mandatory fields can not left blank!
+                  compulsory fields must be filled.
+                </small>
+                <small
+                  *ngIf="futureDate"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Please enter a valid date of birth
+                </small>
+                <small
+                  *ngIf="under18"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  The customer cannot be under the age of 18.
                 </small>
               </div>
 

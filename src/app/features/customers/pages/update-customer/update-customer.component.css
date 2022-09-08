@@ -97,3 +97,7 @@ small{
   font-weight: 700!important;
   font-size: 15px!important;
 }
+.invalid-input {
+  color: red !important;
+  border-color: red !important;
+}
