@@ -73,7 +73,10 @@
             <label class="e-frame-label">{{ customer.nationalityId }}</label>
           </div>
         </div>
-        <button etiyaButton="remove"></button>
+        <button
+          etiyaButton="remove"
+          (click)="removeCustomerPopup(customer)"
+        ></button>
         <button
           etiyaButton="edit"
           (click)="getCustomerId(customer)"
@@ -83,3 +86,18 @@
     </div>
   </div>
 </app-main-layout>
+
+<p-dialog
+  [(visible)]="displayBasic"
+  [style]="{ width: '30vw', height: '20vw' }"
+>
+  <h5 class="header">Warning</h5>
+  <p>Customer cannot be deleted because the customer has active products</p>
+  <p></p>
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="displayBasic = false"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

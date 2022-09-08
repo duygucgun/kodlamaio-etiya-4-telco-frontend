@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Address } from '../../models/address';
+import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
 
 @Component({
@@ -10,17 +12,34 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class CustomerAddressComponent implements OnInit {
   selectedCustomerId!: number;
   customerAddress: Address[] = [];
+  customer!: Customer;
+  addressToDelete!: Address;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private customerService: CustomersService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.getCustomerById();
+    this.messageService.clearObserver.subscribe((data) => {
+      if (data == 'reject') {
+        this.messageService.clear();
+      } else if (data == 'confirm') {
+        this.messageService.clear();
+        this.remove();
+      }
+    });
   }
-
+  remove() {
+    this.customerService
+      .removeAddress(this.addressToDelete, this.customer)
+      .subscribe((data) => {
+        this.getCustomerById();
+      });
+  }
   getCustomerById() {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) this.selectedCustomerId = params['id'];
@@ -37,6 +56,15 @@ export class CustomerAddressComponent implements OnInit {
         });
     }
   }
+  removePopup(address: Address) {
+    this.addressToDelete = address;
+    this.messageService.add({
+      key: 'c',
+      sticky: true,
+      severity: 'warn',
+      detail: 'Are you sure you want to delete?',
+    });
+  }
 
   addAddressBySelectedId() {
     this.router.navigateByUrl(
@@ -48,5 +76,18 @@ export class CustomerAddressComponent implements OnInit {
     this.router.navigateByUrl(
       `/dashboard/customers/${this.selectedCustomerId}/address/update/${addressId}`
     );
+  }
+  handleConfigInput(event: any) {
+    this.customer.addresses = this.customer.addresses?.map((adr) => {
+      const newAddress = { ...adr, isMain: false };
+      return newAddress;
+    });
+    let findAddress = this.customer.addresses?.find((adr) => {
+      return adr.id == event.target.value;
+    });
+    findAddress!.isMain = true;
+    this.customerService.update(this.customer).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

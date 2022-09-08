@@ -39,12 +39,15 @@
                     formControlName="firstName"
                     [ngClass]="{
                       'invalid-input':
-                        isShow && updateCustomerForm.controls['firstName'].errors
+                        isShow &&
+                        updateCustomerForm.controls['firstName'].errors
                     }"
                   />
                 </div>
                 <small
-                  *ngIf="isShow && updateCustomerForm.controls['firstName'].errors"
+                  *ngIf="
+                    isShow && updateCustomerForm.controls['firstName'].errors
+                  "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 220px; margin-top: -20px"
@@ -79,7 +82,9 @@
                   />
                 </div>
                 <small
-                  *ngIf="isShow && updateCustomerForm.controls['lastName'].errors"
+                  *ngIf="
+                    isShow && updateCustomerForm.controls['lastName'].errors
+                  "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 220px; margin-top: -20px"
@@ -98,7 +103,9 @@
                   />
                 </div>
                 <small
-                  *ngIf="isShow && updateCustomerForm.controls['birthDate'].errors"
+                  *ngIf="
+                    isShow && updateCustomerForm.controls['birthDate'].errors
+                  "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 220px; margin-top: -20px"
@@ -106,7 +113,6 @@
                   Mandatory fields can not left blank!
                 </small>
               </div>
-
 
               <div class="col-6">
                 <div
@@ -129,13 +135,15 @@
                     </select>
                   </div>
                   <small
-                  *ngIf="isShow && updateCustomerForm.controls['gender'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  Mandatory fields can not left blank!
-                </small>
+                    *ngIf="
+                      isShow && updateCustomerForm.controls['gender'].errors
+                    "
+                    id="lastName-help"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 220px; margin-top: -20px"
+                  >
+                    Mandatory fields can not left blank!
+                  </small>
                 </div>
               </div>
 
@@ -165,9 +173,9 @@
                 <div class="form-group">
                   <label class="col-5" for="nationalId">Nationality ID*:</label>
                   <input
-                  min="10000000000"
-                  max="99999999999"
-                  (keypress)="isValid($event)"
+                    min="10000000000"
+                    max="99999999999"
+                    (keypress)="isValid($event)"
                     onKeyPress="if(this.value.length==11) return false;"
                     class="col-7"
                     type="text"
@@ -175,12 +183,16 @@
                     formControlName="nationalityId"
                     [ngClass]="{
                       'invalid-input':
-                        isShow && updateCustomerForm.controls['nationalityId'].errors
+                        isShow &&
+                        updateCustomerForm.controls['nationalityId'].errors
                     }"
                   />
                 </div>
                 <small
-                  *ngIf="isShow && updateCustomerForm.controls['nationalityId'].errors"
+                  *ngIf="
+                    isShow &&
+                    updateCustomerForm.controls['nationalityId'].errors
+                  "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 200px; margin-top: -20px"
@@ -195,13 +207,34 @@
               <div class="col-6 d-flex justify-content-lg-start">
                 <button
                   etiyaButton="clear"
-                  routerLink="/dashboard/customers/customer-info/{{customer.id}}"
+                  routerLink="/dashboard/customers/customer-info/{{
+                    customer.id
+                  }}"
                 >
                   CANCEL
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button etiyaButton="clear" (click)="update()">SAVE</button>
+                <button
+                  etiyaButton="clear"
+                  [disabled]="
+                    updateCustomerForm.value.firstName == customer.firstName &&
+                    updateCustomerForm.value.lastName == customer.lastName &&
+                    updateCustomerForm.value.middleName ==
+                      customer.middleName &&
+                    updateCustomerForm.value.birthDate == customer.birthDate &&
+                    updateCustomerForm.value.gender == customer.gender &&
+                    updateCustomerForm.value.fatherName ==
+                      customer.fatherName &&
+                    updateCustomerForm.value.motherName ==
+                      customer.motherName &&
+                    updateCustomerForm.value.nationalityId ==
+                      customer.nationalityId
+                  "
+                  (click)="update()"
+                >
+                  SAVE
+                </button>
               </div>
             </div>
           </div>

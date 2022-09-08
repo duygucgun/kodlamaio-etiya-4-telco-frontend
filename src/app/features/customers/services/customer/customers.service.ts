@@ -169,7 +169,30 @@ export class CustomersService {
     return this.httpClient.delete<Customer>(`${this.apiControllerUrl}/${id}`);
   }
 
-  update(
+  update(customer: Customer): Observable<Customer> {
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      customer
+    );
+  }
+  removeAddress(
+    addressToDelete: Address,
+    customer: Customer
+  ): Observable<Customer> {
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newAddress = customer.addresses?.filter(
+      (address) => address.id != addressToDelete.id
+    );
+    newCustomer.addresses = newAddress;
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+  updateDemographicInfo(
     customerDemographicInfo: any,
     customer: Customer
   ): Observable<Customer> {
