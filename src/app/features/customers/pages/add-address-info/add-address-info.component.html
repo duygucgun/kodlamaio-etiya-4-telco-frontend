@@ -39,7 +39,10 @@
                         <option selected disabled hidden value="city">
                           Choose a city
                         </option>
-                        <option *ngFor="let city of cityList" [ngValue]="city">
+                        <option
+                          *ngFor="let city of cityList"
+                          [ngValue]="city.id"
+                        >
                           {{ city.name }}
                         </option>
                       </select>
@@ -148,7 +151,7 @@
                 </button>
               </div>
               <div class="col-2">
-                <button etiyaButton="clear" (click)="addAddress()">SAVE</button>
+                <button etiyaButton="clear" (click)="save()">SAVE</button>
               </div>
             </div>
           </form>

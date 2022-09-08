@@ -1,5 +1,6 @@
 import {
   addAddressInfo,
+  removeAddressInfo,
   setContactMediumInfo,
   setDemographicInfo,
   updateAddressInfo,
@@ -118,8 +119,11 @@ export class CustomersService {
     this.store.dispatch(addAddressInfo(newAddress));
   }
 
-  updateAddressInfoToStore(props: Address, customers: Customer) {
-    this.store.dispatch(updateAddressInfo(props));
+  updateAddressInfoToStore(props: Address) {
+    const newAddress: Address = {
+      ...props,
+    };
+    this.store.dispatch(updateAddressInfo(newAddress));
   }
 
   setContactMediumInfoToStore(props: ContactMedium) {
@@ -143,6 +147,9 @@ export class CustomersService {
         },
       });
     return subject.asObservable();
+  }
+  removeAdress(address: Address) {
+    this.store.dispatch(removeAddressInfo(address));
   }
 
   add(customer: Customer): Observable<Customer> {

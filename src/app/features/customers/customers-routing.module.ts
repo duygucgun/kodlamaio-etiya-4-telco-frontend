@@ -58,6 +58,7 @@ const routes: Routes = [
     component: ConfigurationProductComponent,
   },
   { path: ':id/address/add', component: AddCustomerAddressComponent },
+  { path: 'update-address-info/:id', component: AddAddressInfoComponent },
   {
     path: ':id/address/update/:addressId',
     component: AddCustomerAddressComponent,

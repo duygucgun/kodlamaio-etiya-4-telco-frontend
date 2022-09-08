@@ -58,10 +58,10 @@ export class AddAddressInfoComponent implements OnInit {
   }
 
   save() {
-    if (this.selectedAddressId == undefined) {
-      this.addAddress();
-    } else {
+    if (this.selectedAddressId) {
       this.updateAddress();
+    } else {
+      this.addAddress();
     }
   }
 
@@ -85,6 +85,7 @@ export class AddAddressInfoComponent implements OnInit {
     let addressToFind = this.customer.addresses?.find(
       (c) => c.id == this.selectedAddressId
     );
+
     if (addressToFind) {
       const addressToUpdate = {
         ...addressToFind,
@@ -93,10 +94,8 @@ export class AddAddressInfoComponent implements OnInit {
           (city) => city.id == this.addressForm.value.city
         ),
       };
-      this.customersService.updateAddressInfoToStore(
-        addressToUpdate,
-        this.customer
-      );
+      console.log(addressToUpdate);
+      this.customersService.updateAddressInfoToStore(addressToUpdate);
       this.router.navigateByUrl('/dashboard/customers/list-address-info');
     }
   }
