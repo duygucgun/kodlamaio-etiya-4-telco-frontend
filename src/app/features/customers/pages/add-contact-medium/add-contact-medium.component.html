@@ -49,9 +49,17 @@
                 <div class="col-12 col-lg-4 e-contact-col-center">
                   <label for="middle-name">Home Phone </label>
                 </div>
-                <div class="col-12 col-lg-8 e-contact-col-center">
+                <div class="col-12 col-lg-8 e-contact-col-center d-flex">
+                  <input
+                    style="max-width: 50px"
+                    type="text"
+                    placeholder="+90"
+                    etiyaInput="dark"
+                    disabled
+                  />
                   <input
                     max="9999999999"
+                    style="max-width: 249px"
                     min="1000000000"
                     (keypress)="isValid($event)"
                     type="number"
@@ -65,14 +73,6 @@
                     }"
                   />
                 </div>
-                <small
-                  *ngIf="isShow && contactForm.controls['homePhone'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 450px; margin-top: 10px"
-                >
-                  Mandatory fields can not left blank!
-                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 mb-5">
@@ -121,9 +121,17 @@
                 <div class="col-12 col-lg-4 e-contact-col-center">
                   <label for="birth-date">Fax </label>
                 </div>
-                <div class="col-12 col-lg-8 e-contact-col-center">
+                <div class="col-12 col-lg-8 e-contact-col-center d-flex">
+                  <input
+                    style="max-width: 50px"
+                    type="text"
+                    placeholder="+90"
+                    etiyaInput="dark"
+                    disabled
+                  />
                   <input
                     (keypress)="isValid($event)"
+                    style="max-width: 249px"
                     max="9999999999"
                     min="1000000000"
                     type="number"
@@ -137,14 +145,6 @@
                     }"
                   />
                 </div>
-                <small
-                  *ngIf="isShow && contactForm.controls['fax'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 450px; margin-top: 10px"
-                >
-                  Mandatory fields can not left blank!
-                </small>
               </div>
             </div>
           </div>
