@@ -115,10 +115,8 @@ export class UpdateCustomerComponent implements OnInit {
       });
       if (matchCustomer) {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
           detail: 'A customer is already exist with this Nationality ID',
-          key: 'etiya-standard',
+          key: 'etiya-custom',
         });
       } else this.updateCustomer();
     });
