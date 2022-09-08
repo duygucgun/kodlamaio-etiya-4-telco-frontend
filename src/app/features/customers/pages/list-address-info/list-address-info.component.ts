@@ -37,7 +37,11 @@ export class ListAddressInfoComponent implements OnInit {
   }
   removePopup(address: Address) {
     if (this.customer.addresses && this.customer.addresses?.length <= 1) {
-      alert('1 adres varsa silemezsin.');
+      this.messageService.add({
+        detail:
+          'The address that you want to delete is a default address. Please, change default address then try again.',
+        key: 'etiya-warn',
+      });
       return;
     }
     this.addressToDelete = address;
