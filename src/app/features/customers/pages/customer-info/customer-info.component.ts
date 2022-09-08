@@ -27,17 +27,20 @@ export class CustomerInfoComponent implements OnInit {
 
   checkIsActiveStatus() {
     this.messageService.clearObserver.subscribe((data) => {
-      if (data == 's') {
+      if (data == 'r') {
         this.messageService.clear();
       } else if (data == 'c') {
         let filteredData = this.customer.billingAccounts?.find((c) => {
           return c.status === 'active';
         });
+        this.messageService.clear();
         if (filteredData) {
           this.messageService.add({
-            key: 'etiya-warn',
+            key: 'okey',
+            sticky: true,
+            severity: 'warn',
             detail:
-              'Since the customer has active products, the customer cannot be deleted.',
+              'Since the customer has active products, the customer cannot be deleted. Are you sure delete this customer?',
           });
         } else {
           this.messageService.clear();
