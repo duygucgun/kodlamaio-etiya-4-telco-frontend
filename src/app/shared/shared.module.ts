@@ -34,7 +34,6 @@ import { TableScrollComponent } from './components/table-scroll/table-scroll.com
 import { TableAccordionHeaderComponent } from './components/table-accordion-header/table-accordion-header.component';
 import { StoreModule } from '@ngrx/store';
 import { sharedReducers } from './store/shared.reducers';
-import { ConfirmationDialogSecondComponent } from './components/confirmation-dialog-second/confirmation-dialog-second.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +63,6 @@ import { ConfirmationDialogSecondComponent } from './components/confirmation-dia
     CheckBoxDirective,
     TableScrollComponent,
     TableAccordionHeaderComponent,
-    ConfirmationDialogSecondComponent,
   ],
   imports: [
     CommonModule,
@@ -100,7 +98,6 @@ import { ConfirmationDialogSecondComponent } from './components/confirmation-dia
     InputDirective,
     TableScrollComponent,
     TableAccordionHeaderComponent,
-    ConfirmationDialogSecondComponent,
   ],
   providers: [MessageService],
 })
