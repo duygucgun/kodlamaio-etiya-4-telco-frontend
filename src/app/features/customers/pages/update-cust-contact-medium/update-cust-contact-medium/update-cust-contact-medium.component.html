@@ -29,8 +29,10 @@
             <div class="row d-flex justify-space-between align-items-center">
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="email">Email:</label>
+                  <label class="col-5" for="email">Email * :</label>
                   <input
+                    #emailtrial
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     class="col-7"
                     type="text"
                     etiyaInput="dark"
@@ -44,10 +46,10 @@
                 </div>
                 <small
                   *ngIf="
-                    isShow && updateCustomerContactForm.controls['email'].errors
+                    isShow && updateCustomerContactForm.controls['email'].errors && emailtrial.value.length !=0
                   "
                   class="p-error block ng-invalid ng-dirty"
-                  style="color: red"
+                  style="color: red; margin-left: 250px"
                 >
                   E-mail must be a valid e-mail address
                 </small>
@@ -67,10 +69,11 @@
                     style="max-width: 249px"
                     min="1000000000"
                     (keypress)="isValid($event)"
-                    type="number"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+                    type="text"
                     etiyaInput="dark"
                     class="e-contact-input"
-                    onKeyPress="if(this.value.length==10) return false;"
+                    onKeyPress="if(this.value.length==13) return false;"
                     formControlName="homePhone"
                     [ngClass]="{
                       'invalid-input':
@@ -83,7 +86,9 @@
 
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="mobilePhone">Mobile Phone :</label>
+                  <label class="col-5" for="mobilePhone"
+                    >Mobile Phone * :</label
+                  >
                   <input
                     style="max-width: 50px"
                     type="text"
@@ -92,11 +97,13 @@
                     disabled
                   />
                   <input
+                  #mobiletrial
                     style="max-width: 249px"
                     max="9999999999"
                     min="1000000000"
-                    type="number"
+                    type="text"
                     (keypress)="isValid($event)"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="mobilePhone"
@@ -111,11 +118,16 @@
                 <small
                   *ngIf="
                     isShow &&
-                    updateCustomerContactForm.controls['mobilePhone'].errors
+                    updateCustomerContactForm.controls['mobilePhone'].errors && mobiletrial.value.length !=0
                   "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 400px; margin-top: 10px"
+                  style="
+                    color: red;
+                    margin-left: 200px;
+                    margin-top: -10px;
+                    width: 400px;
+                  "
                 >
                   Mobile phone number cannot be less than 10 digits!
                 </small>
@@ -132,14 +144,15 @@
                   />
                   <input
                     (keypress)="isValid($event)"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     style="max-width: 249px"
                     max="9999999999"
                     min="1000000000"
-                    type="number"
+                    type="text"
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="fax"
-                    onKeyPress="if(this.value.length==10) return false;"
+                    onKeyPress="if(this.value.length==13) return false;"
                     [ngClass]="{
                       'invalid-input':
                         isShow &&
@@ -150,6 +163,16 @@
               </div>
             </div>
           </div>
+          <small
+            *ngIf="
+
+              emailtrial.value.length == 0 || mobiletrial.value.length == 0
+            "
+            class="p-error block ng-invalid ng-dirty"
+            style="color: red; margin-left: 250px"
+          >
+          Mandatory fields can not left blank!
+          </small>
           <div class="d-flex justify-content-center mt-5">
             <div style="width: 1125px" class="row p-0 pt-4">
               <div class="col-6 d-flex justify-content-lg-start">

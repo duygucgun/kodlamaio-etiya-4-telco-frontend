@@ -18,7 +18,7 @@ export class UpdateCustContactMediumComponent implements OnInit {
   updateCustomerContactForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
-  isShow: Boolean = false;
+  isShow: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,23 +44,25 @@ export class UpdateCustContactMediumComponent implements OnInit {
   }
 
   createFormUpdateContactCustomer() {
+    //console.log(this.customer)
     this.updateCustomerContactForm = this.formBuilder.group({
       email: [
         this.customer.contactMedium?.email,
         [Validators.email, Validators.required],
       ],
-      homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
+      homePhone: [this.customer.contactMedium?.homePhone, [ Validators.required]],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        Validators.required,
+        [ Validators.required]
       ],
-      fax: [this.customer.contactMedium?.fax, Validators.required],
+      fax: [this.customer.contactMedium?.fax, [ Validators.required]],
     });
+    //console.log(this.updateCustomerContactForm.value)
   }
   getCustomerById() {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) this.selectedCustomerId = params['id'];
-      console.log(this.selectedCustomerId);
+      //console.log(this.selectedCustomerId);
     });
     if (this.selectedCustomerId == undefined) {
       this.messageService.add({
