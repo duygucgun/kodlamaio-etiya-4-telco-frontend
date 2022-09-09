@@ -32,26 +32,6 @@
         <div class="row">
           <label class="e-acc-label" for="accountNumber">Account Number</label>
         </div>
-        <div class="row">
-          <div class="d-flex justify-content-lg-start align-items-center">
-            <input
-              type="number"
-              etiyaInput="dark"
-              id="accountNumber"
-              formControlName="accountNumber"
-              onKeyPress="if(this.value.length==10) return false;"
-              (keypress)="isValid($event)"
-            />
-
-            <button
-              etiyaButton="clear"
-              [disabled]="!searchForm.invalid"
-              (click)="searchAccount()"
-            >
-              Search
-            </button>
-          </div>
-        </div>
       </form>
 
       <app-table-accordion-header></app-table-accordion-header>
