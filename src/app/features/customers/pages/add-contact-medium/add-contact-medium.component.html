@@ -8,12 +8,12 @@
     </div>
   </div>
   <app-main-layout [layoutTitle]="'CREATE CUSTOMER'">
-    <div class="e-customer-content ">
+    <div class="e-customer-content">
       <div class="e-contact-center mb-5">
         <app-info-title [infoTitle]="'Contact Medium'"></app-info-title>
       </div>
       <div class="e-contact-center">
-        <form [formGroup]="contactForm" class="e-contact-form ">
+        <form [formGroup]="contactForm" class="e-contact-form">
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="row e-customer-input">
@@ -36,7 +36,6 @@
                 </div>
                 <small
                   *ngIf="isShow && contactForm.controls['email'].errors"
-                  id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: 10px"
                 >

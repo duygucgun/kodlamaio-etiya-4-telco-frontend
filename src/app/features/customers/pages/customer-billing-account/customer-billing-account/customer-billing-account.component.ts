@@ -20,10 +20,9 @@ export class CustomerBillingAccountComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   billingAccount!: BillingAccount;
-  addresses!: Address;
-
   billingAdress: Address[] = [];
-
+  addresses!: Address;
+  mainAddres!: number;
   constructor(
     private formBuilder: FormBuilder,
     private cityService: CityService,
@@ -35,6 +34,7 @@ export class CustomerBillingAccountComponent implements OnInit {
   ngOnInit(): void {
     this.getParams();
     this.getCityList();
+    this.getMainAddress();
   }
 
   getParams() {
@@ -62,19 +62,6 @@ export class CustomerBillingAccountComponent implements OnInit {
     this.accountForm = this.formBuilder.group({
       accountName: ['', Validators.required],
       accountDescription: ['', Validators.required],
-    });
-  }
-  handleConfigInput(event: any) {
-    this.customer.addresses = this.customer.addresses?.map((adr) => {
-      const newAddress = { ...adr, isMain: false };
-      return newAddress;
-    });
-    let findAddress = this.customer.addresses?.find((adr) => {
-      return adr.id == event.target.value;
-    });
-    findAddress!.isMain = true;
-    this.customerService.update(this.customer).subscribe((data) => {
-      console.log(data);
     });
   }
 
@@ -112,12 +99,19 @@ export class CustomerBillingAccountComponent implements OnInit {
   }
 
   add() {
-    this.billingAccount = this.accountForm.value;
-    this.billingAccount.addresses = this.billingAdress;
-    console.log(this.billingAccount);
+    //this.billingAccount = this.accountForm.value;
+    //this.billingAccount.addresses = this.billingAdress;
+    let newBillingAccount: BillingAccount = {
+      ...this.accountForm.value,
+      addresses: [...this.billingAdress, this.addresses],
+    };
     this.customerService
-      .addBillingAccount(this.billingAccount, this.customer)
+      .addBillingAccount(newBillingAccount, this.customer)
       .subscribe();
+    this.router.navigateByUrl(
+      '/dashboard/customers/customer-billing-account-detail/' +
+        this.selectedCustomerId
+    );
   }
   getMainAddress() {
     this.customerService
@@ -127,5 +121,24 @@ export class CustomerBillingAccountComponent implements OnInit {
           if (adr.isMain == true) this.addresses = adr;
         });
       });
+  }
+  handleConfigInput(event: any) {
+    this.mainAddres = event.target.value;
+    //this.add(event.target.value)
+    this.billingAccount.addresses = this.billingAccount.addresses?.map(
+      (adr) => {
+        const newAddress = { ...adr, isMain: false };
+        return newAddress;
+      }
+    );
+
+    let findAddressBill = this.billingAccount.addresses.find((adr) => {
+      return adr.id == event.target.value;
+    });
+
+    findAddressBill!.isMain = true;
+    this.customerService.update(this.customer).subscribe((data) => {
+      //this.getCustomerById();
+    });
   }
 }

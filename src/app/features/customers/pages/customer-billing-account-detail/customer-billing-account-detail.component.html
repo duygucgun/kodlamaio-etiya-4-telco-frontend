@@ -28,8 +28,46 @@
   <div class="p-2"></div>
   <div class="e-customer-content">
     <div class="m-3">
+      <form [formGroup]="searchForm">
+        <div class="row">
+          <label class="e-acc-label" for="accountNumber">Account Number</label>
+        </div>
+        <div class="row">
+          <div class="d-flex justify-content-lg-start align-items-center">
+            <input
+              type="number"
+              etiyaInput="dark"
+              id="accountNumber"
+              formControlName="accountNumber"
+              onKeyPress="if(this.value.length==10) return false;"
+              (keypress)="isValid($event)"
+            />
+
+            <button
+              etiyaButton="clear"
+              [disabled]="!searchForm.invalid"
+              (click)="searchAccount()"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
       <app-table-accordion-header></app-table-accordion-header>
-      <ng-template ngFor let-bill [ngForOf]="billingAccountList">
+      <ng-template *ngIf="filteredData" ngFor let-bill [ngForOf]="filteredData">
+        <app-table-accordion
+          [billingAccount]="bill"
+          [customerId]="selectedCustomerId"
+        ></app-table-accordion>
+      </ng-template>
+
+      <ng-template
+        *ngIf="!filteredData"
+        ngFor
+        let-bill
+        [ngForOf]="billingAccountList"
+      >
         <app-table-accordion
           [billingAccount]="bill"
           [customerId]="selectedCustomerId"
@@ -38,3 +76,17 @@
     </div>
   </div>
 </app-main-layout>
+<p-dialog
+  [(visible)]="displayBasic"
+  [style]="{ width: '30vw', height: '20vw' }"
+>
+  <h5 class="header">Warning</h5>
+  <p>No account found for this number</p>
+  <p></p>
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="displayBasic = false"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

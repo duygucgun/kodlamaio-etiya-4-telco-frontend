@@ -21,6 +21,7 @@
                 <th class="col-2">Street Name</th>
                 <th class="col-2">Hause/Flat Number</th>
                 <th class="col-2">Address Description</th>
+                <th class="col-2">Action</th>
               </tr>
             </thead>
             <tbody class="table-body">
@@ -30,46 +31,53 @@
                   else customerAddressList
                 "
               >
-                <th>Null</th>
-                <td>Null</td>
-                <td>Null</td>
-                <td>Null</td>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
               <ng-template #customerAddressList>
                 <tr *ngFor="let address of customer.addresses">
-                  <div>
-                    <div>
-                      <button
-                        (click)="selectAddressId(address.id)"
-                        etiyaButton="edit"
-                      ></button>
-                      <button
-                        (click)="removePopup(address)"
-                        etiyaButton="remove"
-                      ></button>
+                  <th>
+                    <div class="row">
+                      <div class="col-2 d-flex justify-content-end">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault1"
+                          (change)="handleConfigInput($event)"
+                          value="{{ address.id }}"
+                          [checked]="
+                            address.isMain == true &&
+                            this.customer.addresses &&
+                            this.customer.addresses.length <= 1
+                          "
+                        />
+                        <label class="form-check-label" for="flexRadioDefault1">
+                        </label>
+                      </div>
+                      <div class="col-10 e-city-name">
+                        {{ address.city.name }}
+                      </div>
                     </div>
+                  </th>
 
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault1"
-                        (change)="handleConfigInput($event)"
-                        value="{{ address.id }}"
-                        [checked]="
-                          this.customer.addresses &&
-                          this.customer.addresses.length <= 1
-                        "
-                      />
-                      <label class="form-check-label" for="flexRadioDefault1">
-                      </label>
-                    </div>
-                  </div>
-                  <th>{{ address.city.name }}</th>
                   <td>{{ address.street }}</td>
                   <td>{{ address.flatNumber }}</td>
                   <td>{{ address.description }}</td>
+                  <td class="d-flex justify-content-center">
+                    <button
+                      (click)="selectAddressId(address.id)"
+                      etiyaButton="edit"
+                    ></button>
+                    <button
+                      (click)="removePopup(address)"
+                      etiyaButton="remove"
+                      [disabled]="isChecked"
+                    ></button>
+                  </td>
                 </tr>
               </ng-template>
             </tbody>
@@ -89,12 +97,12 @@
           etiyaButton="clear"
           routerLink="/dashboard/customers/create-customer"
         >
-          PREVIOUS
+          CANCEL
         </button>
         <button
           etiyaButton="clear"
           routerLink="/dashboard/customers/contact-medium"
-          [disabled]="customer.addresses?.length === 0"
+          [disabled]="!customer.addresses || customer.addresses.length == 0"
         >
           NEXT
         </button>

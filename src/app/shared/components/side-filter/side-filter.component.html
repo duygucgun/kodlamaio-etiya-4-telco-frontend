@@ -19,6 +19,7 @@
         formControlName="nationalityId"
         onKeyPress="if(this.value.length==11) return false;"
         #nationalityId
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
       />
       <!-- <div
         *ngIf="
@@ -39,6 +40,7 @@
         formControlName="customerId"
         onKeyPress="if(this.value.length==10) return false;"
         type="number"
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         #customerId
       />
 
@@ -48,6 +50,7 @@
         type="number"
         min="1"
         etiyaInput="dark"
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         formControlName="accountNumber"
         #accountNumber
       />
@@ -61,6 +64,7 @@
         onKeyPress="if(this.value.length==13) return false;"
         type="number"
         etiyaInput="dark"
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         formControlName="gsmNumber"
         #gsmNumber
       />
@@ -87,6 +91,7 @@
         (keypress)="isValid($event)"
         min="1"
         type="number"
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         etiyaInput="dark"
         formControlName="orderNumber"
         #orderNumber

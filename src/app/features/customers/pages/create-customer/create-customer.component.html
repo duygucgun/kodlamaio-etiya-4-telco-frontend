@@ -218,6 +218,7 @@
                     type="number"
                     min="10000000000"
                     max="99999999999"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     etiyaInput="dark"
                     formControlName="nationalityId"
                     (keypress)="isValid($event)"

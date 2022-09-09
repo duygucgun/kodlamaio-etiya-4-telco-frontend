@@ -28,16 +28,16 @@
                     <div class="e-dropdown">
                       <select
                         etiyaInput="dark"
-                        name="city"
-                        id="city"
+                        name="gender"
+                        id="gender"
                         formControlName="city"
                         [ngClass]="{
                           'invalid-input':
                             isShow && addressForm.controls['city'].errors
                         }"
                       >
-                        <option selected disabled hidden value="city">
-                          Choose a city
+                        <option selected disabled hidden value="">
+                          Select a city
                         </option>
                         <option
                           *ngFor="let city of cityList"
@@ -50,9 +50,8 @@
                   </div>
                   <small
                     *ngIf="isShow && addressForm.controls['city'].errors"
-                    id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 380px; margin-top: 11px"
+                    style="color: red; margin-left: 350px"
                   >
                     Mandatory fields can not left blank!
                   </small>

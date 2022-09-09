@@ -107,33 +107,54 @@ export class AddCustomerAddressComponent implements OnInit {
       this.isShow = true;
     }
   }
-  cancel(){
+  cancel() {
     this.router.navigateByUrl(
       `/dashboard/customers/customer-address/${this.selectedCustomerId}`
-    )
+    );
   }
 
   add() {
-    const addressToAdd: Address = {
-      ...this.addressForm.value,
-      city: this.cityList.find(
-        (city) => city.id == this.addressForm.value.city
-      ),
-    };
-    this.customerService.addAddress(addressToAdd, this.customer).subscribe();
+    if (this.addressForm.valid) {
+      const addressToAdd: Address = {
+        ...this.addressForm.value,
+        city: this.cityList.find(
+          (city) => city.id == this.addressForm.value.city
+        ),
+        isMain: this.isMainAdd(),
+      };
+      this.customerService.addAddress(addressToAdd, this.customer).subscribe();
+      this.router.navigateByUrl(
+        '/dashboard/customers/customer-address/' + this.selectedCustomerId
+      );
+    }
+  }
+  isMainAdd() {
+    return this.customer.addresses?.length == 0 ? true : false;
   }
 
   update() {
-    const addressToUpdate: Address = {
-      ...this.addressForm.value,
-      id: this.selectedAddressId,
-      city: this.cityList.find(
-        (city) => city.id == this.addressForm.value.city
-      ),
-    };
-    this.customerService
-      .updateAddress(addressToUpdate, this.customer)
-      .subscribe();
+    if (this.addressForm.valid) {
+      const addressToUpdate: Address = {
+        ...this.addressForm.value,
+        id: this.selectedAddressId,
+        city: this.cityList.find(
+          (city) => city.id == this.addressForm.value.city
+        ),
+        isMain: this.getSelectedIsMain(),
+      };
+      this.customerService
+        .updateAddress(addressToUpdate, this.customer)
+        .subscribe();
+    }
+    this.router.navigateByUrl(
+      '/dashboard/customers/customer-address/' + this.selectedCustomerId
+    );
+  }
+  getSelectedIsMain() {
+    let selectedAddress = this.customer.addresses?.find(
+      (address) => address.id == this.selectedAddressId
+    );
+    return selectedAddress?.isMain;
   }
 
   closeIconRoute() {

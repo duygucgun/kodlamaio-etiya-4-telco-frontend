@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { Address } from '../../models/address';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
+import { Address } from '../../models/address';
 
 @Component({
   selector: 'app-list-address-info',
@@ -14,6 +14,7 @@ export class ListAddressInfoComponent implements OnInit {
   customer!: Customer;
   addressToDelete!: Address;
   displayBasic!: boolean;
+  isChecked!: boolean;
   constructor(
     private customersService: CustomersService,
     private router: Router,
@@ -38,10 +39,7 @@ export class ListAddressInfoComponent implements OnInit {
   }
   removePopup(address: Address) {
     if (this.customer.addresses && this.customer.addresses?.length <= 1) {
-      this.messageService.add({
-        detail: 'The address that you want to delete is a default address.',
-        key: 'etiya-warn',
-      });
+      this.displayBasic = true;
       return;
     }
     this.addressToDelete = address;
@@ -49,7 +47,7 @@ export class ListAddressInfoComponent implements OnInit {
       key: 'c',
       sticky: true,
       severity: 'warn',
-      detail: 'Your changes could not be saved. Are you sure?',
+      detail: 'Are you sure to delete this address?',
     });
   }
   remove() {
@@ -65,6 +63,7 @@ export class ListAddressInfoComponent implements OnInit {
       return adr.id == event.target.value;
     }) as Address;
     findAddress!.isMain = true;
+    this.isChecked = true;
 
     this.customersService.updateAddressInfoToStore(findAddress);
   }
