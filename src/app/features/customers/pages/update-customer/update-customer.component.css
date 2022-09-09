@@ -5,7 +5,7 @@
 
 .e-customer-content {
   box-sizing: border-box;
-  margin-left: 60px;
+  margin: auto;
   width: 1125px;
   background: rgba(13, 43, 80, 0.7);
   border: 3px solid #f58220;
