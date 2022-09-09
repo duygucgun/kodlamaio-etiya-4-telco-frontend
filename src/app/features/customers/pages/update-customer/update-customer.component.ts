@@ -16,9 +16,8 @@ export class UpdateCustomerComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   isShow: boolean = false;
-   today: Date = new Date();
-  // under18: Boolean = false;
-  // futureDate: Boolean = false;
+  today: Date = new Date();
+  futureDate: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +58,10 @@ export class UpdateCustomerComponent implements OnInit {
     let date = new Date(event.target.value);
     if (date.getFullYear() > this.today.getFullYear()) {
       this.updateCustomerForm.get('birthDate')?.setValue('');
+      this.futureDate = true
+    }
+    else {
+      this.futureDate = false;
     }
   }
 

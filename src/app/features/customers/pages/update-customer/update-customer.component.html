@@ -105,26 +105,34 @@
                     [ngClass]="{
                       'invalid-input':
                         isShow &&
-                        updateCustomerForm.controls['birthDate'].errors
+                        updateCustomerForm.controls['birthDate'].errors &&
+                        !futureDate
                     }"
                   />
                 </div>
                 <small
                   *ngIf="
                     isShow &&
-                    updateCustomerForm.controls['birthDate'].errors"
+                    updateCustomerForm.controls['birthDate'].errors &&
+                    !futureDate
+                  "
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 220px; margin-top: -20px"
                 >
-                  compulsory fields must be filled.
+                  Mandatory fields can not left blank!
                 </small>
 
+                <small
+                  *ngIf="futureDate"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Please enter a valid date of birth
+                </small>
               </div>
 
               <div class="col-6">
-                <div
-                  class="form-group d-flex "
-                >
+                <div class="form-group d-flex">
                   <label class="col-5" for="gender">Gender*:</label>
                   <div class="e-dropdown col-7 p-0">
                     <select
