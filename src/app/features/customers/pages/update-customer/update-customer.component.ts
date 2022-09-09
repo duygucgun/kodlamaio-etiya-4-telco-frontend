@@ -16,9 +16,9 @@ export class UpdateCustomerComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   isShow: boolean = false;
-  today: Date = new Date();
-  under18: Boolean = false;
-  futureDate: Boolean = false;
+   today: Date = new Date();
+  // under18: Boolean = false;
+  // futureDate: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,9 +59,6 @@ export class UpdateCustomerComponent implements OnInit {
     let date = new Date(event.target.value);
     if (date.getFullYear() > this.today.getFullYear()) {
       this.updateCustomerForm.get('birthDate')?.setValue('');
-      this.futureDate = true;
-    } else {
-      this.futureDate = false;
     }
   }
 
@@ -81,15 +78,7 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
-  // goNextPage() {
-  //   if (this.updateCustomerForm.valid) {
-  //     this.isShow = false;
-  //     this.customerService.setDemographicInfoToStore(this.updateCustomerForm.value);
-  //     this.router.navigateByUrl('/dashboard/customers/list-address-info');
-  //   } else {
-  //     this.isShow = true;
-  //   }
-  // }
+
 
   updateCustomer() {
     this.isShow = false;
@@ -122,14 +111,14 @@ export class UpdateCustomerComponent implements OnInit {
       });
       return;
     }
-    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
-    let age = this.today.getFullYear() - date.getFullYear();
-    if (age < 18) {
-      this.under18 = true;
-      return;
-    } else {
-      this.under18 = false;
-    }
+    // let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    // let age = this.today.getFullYear() - date.getFullYear();
+    // if (age < 18) {
+    //   this.under18 = true;
+    //   return;
+    // } else {
+    //   this.under18 = false;
+    // }
 
     if (
       this.updateCustomerForm.value.nationalityId ===

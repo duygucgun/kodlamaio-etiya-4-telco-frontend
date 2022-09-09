@@ -112,29 +112,13 @@
                 <small
                   *ngIf="
                     isShow &&
-                    updateCustomerForm.controls['birthDate'].errors &&
-                    !futureDate &&
-                    !under18
-                  "
+                    updateCustomerForm.controls['birthDate'].errors"
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 220px; margin-top: -20px"
                 >
                   compulsory fields must be filled.
                 </small>
-                <small
-                  *ngIf="futureDate"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  Please enter a valid date of birth
-                </small>
-                <small
-                  *ngIf="under18"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  The customer cannot be under the age of 18.
-                </small>
+
               </div>
 
               <div class="col-6">
