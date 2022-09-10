@@ -21,15 +21,10 @@ export class CustomerBillingAccountComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   billingAccount!: BillingAccount;
-  isValid: boolean = false;
-  isShownError: boolean = false;
+
+  billingAdress: Address[] = [];
   addresses!: Address;
   mainAddres!: number;
-  newAddress!: Address[];
-  billingAdress: Address[] = [];
-  displayBasic!: boolean;
-  addressToDelete!: Address;
-  findToAddress!: Address;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,20 +32,15 @@ export class CustomerBillingAccountComponent implements OnInit {
     private customerService: CustomersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.getParams();
     this.getCityList();
     this.getMainAddress();
-    this.messageService.clearObserver.subscribe((data) => {
-      if (data == 'r') {
-        this.messageService.clear();
-      } else if (data == 'c') {
-        this.removeAddress();
-      }
-    });
+    this.createAddressForm();
+    this.createAccountForm();
   }
 
   getParams() {
@@ -68,40 +58,19 @@ export class CustomerBillingAccountComponent implements OnInit {
         .getCustomerById(this.selectedCustomerId)
         .subscribe((data) => {
           this.customer = data;
-          this.createAddressForm();
-          this.createAccountForm();
         });
     }
   }
+  isValid(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
 
-  selectAddressId(addressId: number) {
-    this.router.navigateByUrl(
-      `/dashboard/customers/${this.selectedCustomerId}/address/update/${addressId}`
-    );
+    event.preventDefault();
+    return false;
   }
 
-  removePopup(address: Address) {
-    if (this.customer.addresses && this.customer.addresses?.length <= 1) {
-      this.displayBasic = true;
-      return;
-    }
-    this.addressToDelete = address;
-    this.messageService.add({
-      key: 'c',
-      sticky: true,
-      severity: 'warn',
-      detail: 'Are you sure to delete this address?',
-    });
-  }
-
-  removeAddress() {
-    this.customerService
-      .removeAddress(this.addressToDelete,this.customer)
-      .subscribe((data) => {
-        this.getCustomerById();
-        //location.reload();
-      });
-  }
   createAccountForm() {
     this.accountForm = this.formBuilder.group({
       accountName: ['', Validators.required],
@@ -130,63 +99,54 @@ export class CustomerBillingAccountComponent implements OnInit {
     });
   }
 
+  isMainAdd() {
+    return this.addresses == undefined ? true : false;
+  }
 
   addAddress() {
-    if(this.addressForm.valid)
-   {
-    this.isShownError=false;
     const addressToAdd: Address = {
       ...this.addressForm.value,
       city: this.cityList.find(
         (city) => city.id == this.addressForm.value.city.id
       ),
-      isMain: false,
+      isMain: this.isMainAdd(),
     };
     this.billingAdress.push(addressToAdd);
     console.log(this.billingAdress);
     this.isShown = false;
-    this.newAddress = [...this.billingAdress, this.addresses];}
-    else{
-      this.isValid=false;
-      this.isShownError=true;
-    }
   }
 
   add() {
-    if(this.accountForm.valid)
-    {
-      this.isValid=false;
-      let newBillingAccount: BillingAccount = {
-        ...this.accountForm.value,
-        addresses: [...this.billingAdress, this.addresses],
-      };
-      this.billingAccount = this.accountForm.value;
-    this.billingAccount.addresses = this.billingAdress;
-    this.billingAccount.status = 'active'
-    this.billingAccount.accountNumber = String(Math.floor(Math.random()*1000000000))
-    console.log(this.billingAccount);
-
+    //this.billingAccount = this.accountForm.value;
+    //this.billingAccount.addresses = this.billingAdress;
+    let newBillingAccount: BillingAccount = {
+      ...this.accountForm.value,
+      addresses: [...this.billingAdress, this.addresses],
+    };
     this.customerService
-      .addBillingAccount(this.billingAccount, this.customer)
-      .subscribe(()=>{
-        this.router.navigateByUrl(
-          '/dashboard/customers/customer-billing-account-detail/' +
-            this.selectedCustomerId
-        );
-      })}
-      else{
-        this.isShownError=false;
-        this.isValid=true
-      }
+      .addBillingAccount(newBillingAccount, this.customer)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            detail: 'Sucsessfully added',
+            severity: 'success',
+            summary: 'Add',
+            key: 'etiya-custom',
+          });
+          this.router.navigateByUrl(
+            `/dashboard/customers/customer-billing-account-detail/${this.selectedCustomerId}`
+          );
+        },
+        error: (err) => {
+          this.messageService.add({
+            detail: 'Error created',
+            severity: 'danger',
+            summary: 'Error',
+            key: 'etiya-custom',
+          });
+        },
+      });
   }
-
-  goToPreviousPage() {
-    this.router.navigateByUrl(
-      '/dashboard/customers/customer-billing-account-detail/' +
-        this.selectedCustomerId
-    );
-  }
-
   getMainAddress() {
     this.customerService
       .getCustomerById(this.selectedCustomerId)
@@ -210,11 +170,10 @@ export class CustomerBillingAccountComponent implements OnInit {
       return adr.id == event.target.value;
     });
 
-
     findAddressBill!.isMain = true;
     this.customerService.update(this.customer).subscribe((data) => {
-      //this.getCustomerById();
+      console.log(data);
+      this.getCustomerById();
     });
   }
-
 }
