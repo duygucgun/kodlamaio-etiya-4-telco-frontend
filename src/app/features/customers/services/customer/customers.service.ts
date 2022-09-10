@@ -276,4 +276,21 @@ export class CustomersService {
       newCustomer
     );
   }
+  removeBillingAccount(
+    billingAccountToDelete: BillingAccount,
+    customer: Customer
+  ): Observable<Customer> {
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newBillingAccount = customer.billingAccounts?.filter(
+      (bill) => bill.id != billingAccountToDelete.id
+    );
+    newCustomer.billingAccounts = newBillingAccount;
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
 }

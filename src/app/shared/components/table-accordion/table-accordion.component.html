@@ -25,9 +25,11 @@
           </div>
           <div class="col-3 e-accordion-text">Billing Account</div>
           <div class="col-2 e-accordion-text">
-            <img src="../assets/img/delete_accordion.png" /><img
-              src="../assets/img/pencil_accordion.png"
-            />
+            <img
+            src="../assets/img/delete_accordion.png"
+            (click)="removePopup(billingAccount)"
+          />
+          <img src="../assets/img/pencil_accordion.png" />
           </div>
         </div>
       </button>

@@ -7,6 +7,7 @@ import { CustomersService } from '../../../services/customer/customers.service';
 import { Address } from '../../../models/address';
 import { Customer } from '../../../models/customer';
 import { BillingAccount } from '../../../models/billingAccount';
+import { MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: './customer-billing-account.component.html',
@@ -20,21 +21,36 @@ export class CustomerBillingAccountComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   billingAccount!: BillingAccount;
-  billingAdress: Address[] = [];
+  isValid: boolean = false;
+  isShownError: boolean = false;
   addresses!: Address;
   mainAddres!: number;
+  newAddress!: Address[];
+  billingAdress: Address[] = [];
+  displayBasic!: boolean;
+  addressToDelete!: Address;
+  findToAddress!: Address;
+
   constructor(
     private formBuilder: FormBuilder,
     private cityService: CityService,
     private customerService: CustomersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private messageService:MessageService
   ) {}
 
   ngOnInit(): void {
     this.getParams();
     this.getCityList();
     this.getMainAddress();
+    this.messageService.clearObserver.subscribe((data) => {
+      if (data == 'r') {
+        this.messageService.clear();
+      } else if (data == 'c') {
+        this.removeAddress();
+      }
+    });
   }
 
   getParams() {
@@ -58,6 +74,34 @@ export class CustomerBillingAccountComponent implements OnInit {
     }
   }
 
+  selectAddressId(addressId: number) {
+    this.router.navigateByUrl(
+      `/dashboard/customers/${this.selectedCustomerId}/address/update/${addressId}`
+    );
+  }
+
+  removePopup(address: Address) {
+    if (this.customer.addresses && this.customer.addresses?.length <= 1) {
+      this.displayBasic = true;
+      return;
+    }
+    this.addressToDelete = address;
+    this.messageService.add({
+      key: 'c',
+      sticky: true,
+      severity: 'warn',
+      detail: 'Are you sure to delete this address?',
+    });
+  }
+
+  removeAddress() {
+    this.customerService
+      .removeAddress(this.addressToDelete,this.customer)
+      .subscribe((data) => {
+        this.getCustomerById();
+        //location.reload();
+      });
+  }
   createAccountForm() {
     this.accountForm = this.formBuilder.group({
       accountName: ['', Validators.required],
@@ -86,33 +130,63 @@ export class CustomerBillingAccountComponent implements OnInit {
     });
   }
 
+
   addAddress() {
+    if(this.addressForm.valid)
+   {
+    this.isShownError=false;
     const addressToAdd: Address = {
       ...this.addressForm.value,
       city: this.cityList.find(
         (city) => city.id == this.addressForm.value.city.id
       ),
+      isMain: false,
     };
     this.billingAdress.push(addressToAdd);
     console.log(this.billingAdress);
     this.isShown = false;
+    this.newAddress = [...this.billingAdress, this.addresses];}
+    else{
+      this.isValid=false;
+      this.isShownError=true;
+    }
   }
 
   add() {
-    //this.billingAccount = this.accountForm.value;
-    //this.billingAccount.addresses = this.billingAdress;
-    let newBillingAccount: BillingAccount = {
-      ...this.accountForm.value,
-      addresses: [...this.billingAdress, this.addresses],
-    };
+    if(this.accountForm.valid)
+    {
+      this.isValid=false;
+      let newBillingAccount: BillingAccount = {
+        ...this.accountForm.value,
+        addresses: [...this.billingAdress, this.addresses],
+      };
+      this.billingAccount = this.accountForm.value;
+    this.billingAccount.addresses = this.billingAdress;
+    this.billingAccount.status = 'active'
+    this.billingAccount.accountNumber = String(Math.floor(Math.random()*1000000000))
+    console.log(this.billingAccount);
+
     this.customerService
-      .addBillingAccount(newBillingAccount, this.customer)
-      .subscribe();
+      .addBillingAccount(this.billingAccount, this.customer)
+      .subscribe(()=>{
+        this.router.navigateByUrl(
+          '/dashboard/customers/customer-billing-account-detail/' +
+            this.selectedCustomerId
+        );
+      })}
+      else{
+        this.isShownError=false;
+        this.isValid=true
+      }
+  }
+
+  goToPreviousPage() {
     this.router.navigateByUrl(
       '/dashboard/customers/customer-billing-account-detail/' +
         this.selectedCustomerId
     );
   }
+
   getMainAddress() {
     this.customerService
       .getCustomerById(this.selectedCustomerId)
@@ -136,9 +210,11 @@ export class CustomerBillingAccountComponent implements OnInit {
       return adr.id == event.target.value;
     });
 
+
     findAddressBill!.isMain = true;
     this.customerService.update(this.customer).subscribe((data) => {
       //this.getCustomerById();
     });
   }
+
 }
