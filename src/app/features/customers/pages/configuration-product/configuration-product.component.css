@@ -8,6 +8,7 @@
   font-weight: 400;
   font-size: 25px;
   line-height: 31px;
+ 
 }
 
 .e-configuration-product-container {
@@ -59,4 +60,40 @@
 }
 .selected {
   background-color: #1a4981;
+}
+.scroll-product{
+  height: 300px;
+  overflow-y: scroll;
+  border-color:#f58220
+  
+}
+
+
+.scroll-product::-webkit-scrollbar {
+  width: 15px;
+}
+
+
+.scroll-product::-webkit-scrollbar-track {
+  background:#1a4981; 
+}
+ 
+
+.scroll-product::-webkit-scrollbar-thumb {
+  background: #f58220; 
+}
+
+.scroll-product::-webkit-scrollbar-thumb:hover {
+  background:#f58220; 
+}
+.warning-message{
+  height: 33px;
+  margin-left: 62px;
+  font-family: 'Anybody';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 33px;
+  color: #ffffff;
+  margin-top: 30px;
 }

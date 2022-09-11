@@ -44,10 +44,11 @@ export class OrderService {
   ): Observable<Customer> | null {
     const newCustomer: Customer = {
       ...customer,
+      id: Math.floor(10000000 + Math.random() * 90000000),
     };
     newCustomer.billingAccounts
       ?.find((account) => account.id == billingAccountId)
-      ?.orders.push({
+      ?.orders?.push({
         ...order,
         id: Math.floor(10000000 + Math.random() * 90000000),
       });

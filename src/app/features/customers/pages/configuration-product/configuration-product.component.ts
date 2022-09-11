@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { CityService } from 'src/app/features/city/services/city/city.service';
 import { Offer } from 'src/app/features/offers/models/offer';
 import { OfferService } from 'src/app/features/offers/services/offer/offer.service';
 import { OrderService } from 'src/app/features/orders/services/order/order.service';
 import { ProductConfigDto } from 'src/app/features/products/models/productConfigDto';
 import { Address } from '../../models/address';
 import { BillingAccount } from '../../models/billingAccount';
+import { City } from '../../models/city';
 import { Customer } from '../../models/customer';
 import { Product } from '../../models/product';
 import { CustomersService } from '../../services/customer/customers.service';
@@ -16,23 +18,29 @@ import { CustomersService } from '../../services/customer/customers.service';
   styleUrls: ['./configuration-product.component.css'],
 })
 export class ConfigurationProductComponent implements OnInit {
-  basket!: Offer[];
-
   selectedCustomerId!: number;
+  basket!: Offer[];
   billingAccountId!: number;
   customer!: Customer;
   billingAccountList!: BillingAccount[];
   billingAdress: Address[] = [];
+  isShown: boolean = false;
+  isShownError: boolean = false;
+  addressForm!: FormGroup;
+  cityList!: City[];
 
   constructor(
     private offerService: OfferService,
     private activatedRoute: ActivatedRoute,
     private customersService: CustomersService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private formBuilder: FormBuilder,
+    private cityService: CityService
   ) {}
 
   ngOnInit(): void {
     this.getParams();
+    this.getCityList();
     this.listenBasket();
   }
 
@@ -41,7 +49,21 @@ export class ConfigurationProductComponent implements OnInit {
       this.basket = [...data];
     });
   }
+  getCityList() {
+    this.cityService.getList().subscribe((data) => {
+      this.cityList = data;
+    });
+  }
 
+  createAddressForm() {
+    this.addressForm = this.formBuilder.group({
+      id: [Math.floor(Math.random() * 1000)],
+      city: ['', Validators.required],
+      street: ['', Validators.required],
+      flatNumber: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+  }
   isTypeProduct(product: Product, type: string): boolean {
     return product.name.toLowerCase().includes(type);
   }
@@ -116,6 +138,10 @@ export class ConfigurationProductComponent implements OnInit {
       )
     );
   }
+  addNewAddressBtn() {
+    this.isShown = true;
+    this.createAddressForm();
+  }
   getAddressInfo(address: Address) {
     this.orderService.addAddressToOrderStore(address);
   }
@@ -125,5 +151,21 @@ export class ConfigurationProductComponent implements OnInit {
       if (basket === undefined) return;
       this.orderService.addOfferToOrderStore([...basket]);
     });
+  }
+  addAddress() {
+    if (this.addressForm.valid) {
+      this.isShownError = false;
+      const addressToAdd: Address = {
+        ...this.addressForm.value,
+        city: this.cityList.find(
+          (city) => city.id == this.addressForm.value.city
+        ),
+      };
+      this.billingAdress.push(addressToAdd);
+      console.log(addressToAdd);
+      this.isShown = false;
+    } else {
+      this.isShownError = true;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Order } from 'src/app/features/orders/models/order';
 import { OrderService } from 'src/app/features/orders/services/order/order.service';
 import { Customer } from '../../models/customer';
@@ -18,7 +19,9 @@ export class SubmitOrderComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private orderService: OrderService,
-    private customerService: CustomersService
+    private customerService: CustomersService,
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -68,9 +71,27 @@ export class SubmitOrderComponent implements OnInit {
     return sumAmount;
   }
 
+  // submitOrder() {
+  //   this.orderService
+  //     .addOrder(this.order, this.customer, this.billingAccountId)
+  //     ?.subscribe();
+  //   this.messageService.add({
+  //     detail: 'Your order has been created.',
+  //     key: 'etiya-custom',
+  //   });
+  //   this.router.navigateByUrl(
+  //     `/dashboard/customers/customer-billing-account-detail/${this.billingAccountId}`
+  //   );
+  // }
   submitOrder() {
     this.orderService
       .addOrder(this.order, this.customer, this.billingAccountId)
-      ?.subscribe();
+      ?.subscribe(() => {
+        this.messageService.add({
+          detail: 'Your order has been successfully created.',
+          key: 'etiya-custom',
+        });
+        this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+      });
   }
 }

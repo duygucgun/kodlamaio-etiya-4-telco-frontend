@@ -97,6 +97,7 @@ export class CustomerBillingAccountComponent implements OnInit {
 
   addAddress() {
     if (this.addressForm.valid) {
+      this.isShown = false;
       this.isShownError = false;
       const addressToAdd: Address = {
         ...this.addressForm.value,

@@ -54,7 +54,7 @@
                   maxlength="100"
                   [ngClass]="{
                     'invalid-input':
-                      isShown && accountForm.controls['description'].errors
+                      isShown && addressForm.controls['description'].errors
                   }"
                 ></textarea>
               </div>
@@ -163,9 +163,6 @@
 
                     <tr *ngFor="let billingadr of billingAdress">
                       <th style="display: flex">
-                        <!-- <div>
-                          <button etiyaButton="edit"></button>
-                        </div> -->
                         <div class="form-check">
                           <input
                             class="form-check-input"
@@ -237,7 +234,7 @@
                       formControlName="city"
                       [ngClass]="{
                         'invalid-input':
-                          isShownError && addressForm.controls['city'].errors
+                          isShown && addressForm.controls['city'].errors
                       }"
                     >
                       <option selected disabled hidden value="">
@@ -265,8 +262,7 @@
                     formControlName="flatNumber"
                     [ngClass]="{
                       'invalid-input':
-                        isShownError &&
-                        addressForm.controls['flatNumber'].errors
+                        isShown && addressForm.controls['flatNumber'].errors
                     }"
                   />
                 </div>
@@ -286,7 +282,7 @@
                     formControlName="street"
                     [ngClass]="{
                       'invalid-input':
-                        isShownError && addressForm.controls['street'].errors
+                        isShown && addressForm.controls['street'].errors
                     }"
                   />
                 </div>
@@ -307,8 +303,7 @@
                     maxlength="250"
                     [ngClass]="{
                       'invalid-input':
-                        isShownError &&
-                        addressForm.controls['description'].errors
+                        isShown && addressForm.controls['description'].errors
                     }"
                   ></textarea>
                 </div>
@@ -343,13 +338,7 @@
               </button>
             </div>
             <div class="ml-auto">
-              <button
-                etiyaButton="clear"
-                [disabled]="!addressForm.valid"
-                (click)="addAddress()"
-              >
-                SAVE
-              </button>
+              <button etiyaButton="clear" (click)="addAddress()">SAVE</button>
             </div>
           </div>
         </form>
