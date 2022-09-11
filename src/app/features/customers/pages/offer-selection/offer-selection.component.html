@@ -13,6 +13,7 @@
         <div class="col-12 col-xl-8 e-offer-selection-center">
           <app-tab-menu class="e-tab">
             <div one>
+              <p class="text-danger">knfgkjşdkjfd</p>
               <div class="offer-title mb-3">Catalog Selection</div>
               <form [formGroup]="searchCatalogForm">
                 <div class="e-dropdown">
@@ -192,7 +193,11 @@
       </div>
       <div class="row e-buttons">
         <div class="col-8 d-flex justify-content-end align-items-center">
-          <button etiyaButton="accordion-body" (click)="saveBasket()">
+          <button
+            etiyaButton="accordion-body"
+            (click)="saveBasket()"
+            [disabled]="offerList.length == 0"
+          >
             Add Basket
           </button>
         </div>
