@@ -23,6 +23,8 @@ export class CustomerBillingAccountComponent implements OnInit {
   billingAccount!: BillingAccount;
 
   billingAdress: Address[] = [];
+  isValid: boolean = false;
+  isShownError: boolean = false;
   addresses!: Address;
   mainAddres!: number;
 
@@ -42,7 +44,6 @@ export class CustomerBillingAccountComponent implements OnInit {
     this.createAddressForm();
     this.createAccountForm();
   }
-
   getParams() {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) this.selectedCustomerId = Number(params['id']);
@@ -61,20 +62,11 @@ export class CustomerBillingAccountComponent implements OnInit {
         });
     }
   }
-  isValid(event: any): boolean {
-    console.log(event);
-    const pattern = /[0-9]/;
-    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
-    if (pattern.test(char)) return true;
-
-    event.preventDefault();
-    return false;
-  }
 
   createAccountForm() {
     this.accountForm = this.formBuilder.group({
       accountName: ['', Validators.required],
-      accountDescription: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 
@@ -104,21 +96,32 @@ export class CustomerBillingAccountComponent implements OnInit {
   }
 
   addAddress() {
-    const addressToAdd: Address = {
-      ...this.addressForm.value,
-      city: this.cityList.find(
-        (city) => city.id == this.addressForm.value.city.id
-      ),
-      isMain: this.isMainAdd(),
-    };
-    this.billingAdress.push(addressToAdd);
-    console.log(this.billingAdress);
-    this.isShown = false;
+    if (this.addressForm.valid) {
+      this.isShownError = false;
+      const addressToAdd: Address = {
+        ...this.addressForm.value,
+        city: this.cityList.find(
+          (city) => city.id == this.addressForm.value.city.id
+        ),
+        isMain: this.isMainAdd(),
+      };
+      this.billingAdress.push(addressToAdd);
+      console.log(this.billingAdress);
+      this.isShown = false;
+    } else {
+      this.isValid = false;
+      this.isShownError = true;
+    }
   }
 
   add() {
     //this.billingAccount = this.accountForm.value;
     //this.billingAccount.addresses = this.billingAdress;
+    if (this.accountForm.invalid) {
+      this.isShown = true;
+      return;
+    }
+
     let newBillingAccount: BillingAccount = {
       ...this.accountForm.value,
       addresses: [...this.billingAdress, this.addresses],
@@ -147,6 +150,7 @@ export class CustomerBillingAccountComponent implements OnInit {
         },
       });
   }
+
   getMainAddress() {
     this.customerService
       .getCustomerById(this.selectedCustomerId)
@@ -156,6 +160,7 @@ export class CustomerBillingAccountComponent implements OnInit {
         });
       });
   }
+
   handleConfigInput(event: any) {
     this.mainAddres = event.target.value;
     //this.add(event.target.value)
