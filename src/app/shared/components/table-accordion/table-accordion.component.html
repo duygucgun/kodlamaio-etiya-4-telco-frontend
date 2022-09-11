@@ -26,12 +26,12 @@
           <div class="col-3 e-accordion-text">Billing Account</div>
           <div class="col-2 e-accordion-text">
             <img
-              src="../assets/img/pencil_accordion.png"
-              (click)="updateBillingAccount(billingAccount)"
-            />
-            <img
               src="../assets/img/delete_accordion.png"
               (click)="removePopup(billingAccount)"
+            />
+            <img
+              src="../assets/img/pencil_accordion.png"
+              (click)="updateBillingAccount(billingAccount)"
             />
           </div>
         </div>
@@ -50,7 +50,7 @@
               <thead>
                 <tr class="e-accordion-table-title">
                   <th scope="col">Product ID</th>
-                  <th scope="col">Product Name</th>
+                  <th scope="col">Product Name Action</th>
                   <th scope="col">Campaign Name</th>
                   <th scope="col">Campaign ID</th>
                   <th scope="col"></th>
@@ -67,9 +67,7 @@
                       <td>{{ offer.type.id }}</td>
                       <td></td>
                       <td>
-                        <img src="../assets/img/delete_accordion.png" />
-
-                        <img
+                        <img src="../assets/img/delete_accordion.png" /><img
                           src="../assets/img/eye_accordion.png"
                           (click)="productDetail(billingAccount, offer)"
                         />
@@ -92,7 +90,7 @@
                 billingAccount.id
               "
             >
-              New Sale
+              Start New Sale
             </button>
             <button etiyaButton="accordion-body">Transfer</button>
             <button etiyaButton="accordion-body">Service Address Page</button>

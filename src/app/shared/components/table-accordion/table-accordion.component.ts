@@ -16,7 +16,6 @@ export class TableAccordionComponent implements OnInit {
   @Input() customerId!: number;
   customer!: Customer;
   billingAccountToDelete!: BillingAccount;
-  newAccount!: BillingAccount;
 
   constructor(
     private messageService: MessageService,
@@ -27,36 +26,34 @@ export class TableAccordionComponent implements OnInit {
   ngOnInit(): void {
     this.getCustomerById();
     this.messageService.clearObserver.subscribe((data) => {
-      if (data == 'r') {
+      if (data == 'reject') {
         this.messageService.clear();
-      } else if (data == 'c') {
-        if (this.billingAccountToDelete) {
-          if (
-            this.billingAccountToDelete.orders &&
-            this.billingAccountToDelete.orders.length > 0
-          ) {
+      } else if (data == 'confirm') {
+        if (
+          this.billingAccountToDelete.orders &&
+          this.billingAccountToDelete.orders.length > 0
+        ) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 'offer',
+            severity: 'warn',
+            detail:
+              'There is a product belonging to the account, this account cannot be deleted',
+          });
+          setTimeout(() => {
             this.messageService.clear();
-            this.messageService.add({
-              key: 'etiya-warn',
-              detail:
-                'Since the customer has active products, the customer cannot be deleted ',
-            });
-            setTimeout(() => {
-              this.messageService.clear();
-            }, 3000);
-          } else {
-            this.messageService.clear();
-            this.messageService.add({
-              key: 'etiya-warn',
-              detail: 'Customer account deleted successfully',
-            });
-            setTimeout(() => {
-              this.messageService.clear();
-            }, 3000);
-            this.remove();
-          }
+          }, 3000);
         } else {
-          this.changeStatus();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 'offer',
+            severity: 'warn',
+            detail: 'Customer account deleted successfully',
+          });
+          setTimeout(() => {
+            this.messageService.clear();
+          }, 3000);
+          this.remove();
         }
       }
     });
@@ -64,54 +61,39 @@ export class TableAccordionComponent implements OnInit {
 
   productDetail(billingAccount: BillingAccount, offer: Offer) {
     if (offer.type.typeName == 'campaign') {
-      let campaignProdOfferId = offer.id.toString();
-      let campaignProdOfferName = offer.name;
-      let campaignId = offer.type.id.toString();
-      let campaignAddressDetail: any = [];
-      billingAccount.addresses.forEach(
-        (data) => (campaignAddressDetail = data)
-      );
+      let cnAddress = billingAccount.addresses.toString();
+      let cnProdOfferId = offer.id.toString();
+      let cnProdOfferName = offer.name;
+      let cnCampaignId = offer.type.id.toString();
       this.messageService.add({
-        key: 'product-detail',
+        key: 'okey',
         sticky: true,
         severity: 'warn',
         detail:
-          'Prod Offer Id: ' +
-          campaignProdOfferId +
-          '       ' +
-          'Prod Offer Name: ' +
-          campaignProdOfferName +
-          '       ' +
-          'Campaign Id: ' +
-          campaignId +
-          '       ' +
-          campaignAddressDetail.city.name +
-          '       ' +
-          campaignAddressDetail.description +
-          '       ',
+          'ProdOfferId:' +
+          cnProdOfferId +
+          '                ' +
+          'ProdOfferName:' +
+          cnProdOfferName +
+          '   ' +
+          'CampaignId' +
+          cnCampaignId,
       });
     } else if (offer.type.typeName == 'catalog') {
-      let catalogProdOfferId = offer.id;
-      let catalogProdOfferName = offer.name;
-      let catalogAddressDetail: any = [];
-      billingAccount.addresses.forEach((data) => (catalogAddressDetail = data));
+      let cgAddress = billingAccount.addresses;
+      let cgProdOfferId = offer.id;
+      let cgProdOfferName = offer.name;
       this.messageService.add({
-        key: 'product-detail',
+        key: 'okey',
         sticky: true,
         severity: 'warn',
         detail:
-          'ProdOfferId: ' +
-          catalogProdOfferId +
-          '         ' +
-          'ProdOfferName: ' +
-          catalogProdOfferName +
-          '          ' +
-          'Address Name: ' +
-          catalogAddressDetail.city.name +
-          '          ' +
-          'Address Description: ' +
-          catalogAddressDetail.description +
-          '          ',
+          'ProdOfferId:' +
+          cgProdOfferId +
+          '                ' +
+          'ProdOfferName:' +
+          cgProdOfferName +
+          '   ',
       });
     }
   }
@@ -152,40 +134,5 @@ export class TableAccordionComponent implements OnInit {
     this.router.navigateByUrl(
       `/dashboard/customers/${this.customerId}/customer-bill/update/${billingAccount.id}`
     );
-  }
-
-  changeStatus() {
-    let newStatus!: string;
-    if (this.newAccount.status == 'active') {
-      newStatus = 'passive';
-    } else if (this.newAccount.status == 'passive') {
-      newStatus = 'active';
-    }
-    const billinAccountToUpdate: BillingAccount = {
-      id: this.newAccount.id,
-      accountName: this.newAccount.accountName,
-      addresses: this.newAccount.addresses,
-      orders: this.newAccount?.orders,
-      accountNumber: this.newAccount?.accountNumber,
-      description: this.newAccount.description,
-      status: newStatus,
-    };
-    if (this.billingAccount) {
-      this.customerService
-        .updateBillingAccount(billinAccountToUpdate, this.customer)
-        .subscribe(() => {
-          window.location.reload();
-        });
-    }
-  }
-
-  changeStatusRemovePopUp(billingAccount: BillingAccount) {
-    this.newAccount = billingAccount;
-    this.messageService.add({
-      key: 'c',
-      sticky: true,
-      severity: 'warn',
-      detail: 'Your changes could not be saved. Are you sure?',
-    });
   }
 }
