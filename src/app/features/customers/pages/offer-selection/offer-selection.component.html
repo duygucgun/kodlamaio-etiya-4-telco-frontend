@@ -13,7 +13,6 @@
         <div class="col-12 col-xl-8 e-offer-selection-center">
           <app-tab-menu class="e-tab">
             <div one>
-              <p class="text-danger">knfgkjşdkjfd</p>
               <div class="offer-title mb-3">Catalog Selection</div>
               <form [formGroup]="searchCatalogForm">
                 <div class="e-dropdown">
@@ -97,6 +96,13 @@
                     </tr>
                   </tbody>
                 </app-table-scroll>
+                <small
+                  *ngIf="catalogOffersList?.length == 0"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="margin-left: 200px; margin-top: -15px"
+                >
+                  The product is not found in Catalog.
+                </small>
               </div>
             </div>
 
@@ -183,6 +189,13 @@
                     </tr>
                   </tbody>
                 </app-table-scroll>
+                <small
+                  *ngIf="campaignOffersList?.length == 0"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="margin-left: 200px; margin-top: -15px"
+                >
+                  The product is not found in Campaign.
+                </small>
               </div>
             </div>
           </app-tab-menu>
