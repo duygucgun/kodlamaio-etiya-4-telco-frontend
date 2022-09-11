@@ -293,4 +293,24 @@ export class CustomersService {
       newCustomer
     );
   }
+  updateBillingAccount(
+    billingAccountToUpdate: BillingAccount,
+    customer: Customer
+  ): Observable<Customer> {
+    console.log(billingAccountToUpdate.id);
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newBillingAccount = customer.billingAccounts?.findIndex(
+      (billing) => billing.id === billingAccountToUpdate.id
+    ) as number;
+    if (newCustomer.billingAccounts) {
+      newCustomer.billingAccounts![newBillingAccount] = billingAccountToUpdate;
+    }
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
 }
