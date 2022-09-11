@@ -12,11 +12,8 @@
       <div class="address-title mb-5">
         <app-info-title [infoTitle]="'Address Info'"></app-info-title>
       </div>
-      <div class="d-flex justify-content-center m-8">
+      <div class="d-flex justify-content-center m-6">
         <div class="e-address-form-container">
-          <div class="row">
-            <a class="e-form-close" routerLink="/list-address-info">X</a>
-          </div>
           <form [formGroup]="addressForm">
             <div class="row">
               <div class="col-12 col-xl-5">
@@ -64,6 +61,7 @@
                       >House/Flat Number<span class="e-star">*</span>
                     </label>
                   </div>
+
                   <div class="col-12 col-lg-8 e-address-col-center">
                     <input
                       type="text"
@@ -77,9 +75,8 @@
                   </div>
                   <small
                     *ngIf="isShow && addressForm.controls['flatNumber'].errors"
-                    id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 550px; margin-top: -13px"
+                    style="color: red; margin-left: 500px"
                   >
                     Mandatory fields can not left blank!
                   </small>
@@ -106,9 +103,8 @@
                   </div>
                   <small
                     *ngIf="isShow && addressForm.controls['street'].errors"
-                    id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 380px; margin-top: -13px"
+                    style="color: red; margin-left: 350px"
                   >
                     Mandatory fields can not left blank!
                   </small>
@@ -134,23 +130,26 @@
                   </div>
                   <small
                     *ngIf="isShow && addressForm.controls['description'].errors"
-                    id="lastName-help"
                     class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 500px; margin-top: -13px"
+                    style="color: red"
                   >
                     Mandatory fields can not left blank!
                   </small>
                 </div>
               </div>
             </div>
-            <div class="row mt-2 d-flex justify-content-between">
-              <div class="col-2">
-                <button etiyaButton="clear" (click)="cancelButton()">
+            <div class="row mt-2 d-flex justify-content-center">
+              <div class="e-buttons">
+                <button etiyaButton="clear" (click)="cancelChanges()">
                   CANCEL
                 </button>
-              </div>
-              <div class="col-2">
-                <button etiyaButton="clear" (click)="save()">SAVE</button>
+                <button
+                  etiyaButton="clear"
+                  style="margin-left: 875px"
+                  (click)="save()"
+                >
+                  SAVE
+                </button>
               </div>
             </div>
           </form>
