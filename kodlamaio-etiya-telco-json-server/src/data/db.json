@@ -98,25 +98,6 @@
           ]
         },
         {
-          "id": 2,
-          "accountNumber": "7536678460",
-          "accountName": "ipsum",
-          "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.",
-          "status": "canceled",
-          "addresses": [
-            {
-              "city": {
-                "id": 10,
-                "name": "Oklahoma City"
-              },
-              "street": "Sommers",
-              "flatNumber": 15,
-              "description": "5 Doe Crossing Plaza"
-            }
-          ],
-          "orders": []
-        },
-        {
           "id": 3,
           "accountNumber": "7846906097",
           "accountName": "aliquet",

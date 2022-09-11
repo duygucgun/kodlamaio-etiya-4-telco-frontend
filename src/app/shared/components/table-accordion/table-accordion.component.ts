@@ -26,9 +26,9 @@ export class TableAccordionComponent implements OnInit {
   ngOnInit(): void {
     this.getCustomerById();
     this.messageService.clearObserver.subscribe((data) => {
-      if (data == 'reject') {
+      if (data == 'r') {
         this.messageService.clear();
-      } else if (data == 'confirm') {
+      } else if (data == 'c') {
         if (
           this.billingAccountToDelete.orders &&
           this.billingAccountToDelete.orders.length > 0
@@ -70,13 +70,13 @@ export class TableAccordionComponent implements OnInit {
         sticky: true,
         severity: 'warn',
         detail:
-          'ProdOfferId:' +
+          'ProdOfferId :' +
           cnProdOfferId +
           '                ' +
-          'ProdOfferName:' +
+          'ProdOfferName :' +
           cnProdOfferName +
           '   ' +
-          'CampaignId' +
+          'CampaignId : ' +
           cnCampaignId,
       });
     } else if (offer.type.typeName == 'catalog') {
