@@ -50,12 +50,18 @@ export class UpdateCustContactMediumComponent implements OnInit {
         this.customer.contactMedium?.email,
         [Validators.email, Validators.required],
       ],
-      homePhone: [this.customer.contactMedium?.homePhone, [ Validators.required]],
+      homePhone: [
+        this.customer.contactMedium?.homePhone,
+        Validators.pattern('^[0-9]{11}$'),
+      ],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [ Validators.required]
+        [Validators.required],
       ],
-      fax: [this.customer.contactMedium?.fax, [ Validators.required]],
+      fax: [
+        this.customer.contactMedium?.fax,
+        Validators.pattern('^[0-9]{13}$'),
+      ],
     });
     //console.log(this.updateCustomerContactForm.value)
   }
