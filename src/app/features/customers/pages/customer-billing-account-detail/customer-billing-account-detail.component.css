@@ -13,7 +13,7 @@
   border: 1px solid #f58220 !important;
   margin-top: 10px;
 }
-.e-acc-label{
+.e-acc-label {
   font-family: 'Anybody';
   font-style: normal;
   font-weight: 400;
@@ -26,21 +26,27 @@
   margin-bottom: 20px;
   margin-left: 10px;
 }
-::ng-deep .p-dialog{
+::ng-deep .p-dialog {
   background-color: #2a5183 !important;
-
 }
 
-:host ::ng-deep .p-dialog .p-dialog-content{
+:host ::ng-deep .p-dialog .p-dialog-content {
   color: #2a5183;
   font-weight: 700;
   font-family: 'Anybody';
-
 }
-.header{
-  color:#f58220;
+.header {
+  color: #f58220;
   font-weight: 900;
 }
-.selected{
+.selected {
   opacity: 0.7;
+}
+.pagenation {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+}
+.pagenation span {
+  cursor: pointer;
 }

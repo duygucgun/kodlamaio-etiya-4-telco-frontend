@@ -99,6 +99,11 @@ export class AddCustomerAddressComponent implements OnInit {
         }`);
       } else {
         this.update();
+        this.messageService.add({
+          detail: 'This address updated',
+          severity: 'info',
+          key: 'etiya-custom',
+        });
         this.router.navigateByUrl(
           `/dashboard/customers/customer-address/${this.selectedCustomerId}`
         );
