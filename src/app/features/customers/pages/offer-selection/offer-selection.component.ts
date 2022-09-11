@@ -68,6 +68,7 @@ export class OfferSelectionComponent implements OnInit {
     this.offerList.forEach((offer) => {
       this.offerService.addOfferToBasketStore(offer);
     });
+    //console.log(this.offerList);
   }
   isSelected(offer: Offer): boolean {
     if (this.offerList === undefined) return false;
