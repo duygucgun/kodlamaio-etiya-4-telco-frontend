@@ -78,6 +78,9 @@ export class CustomerAddressComponent implements OnInit {
       severity: 'warn',
       detail: 'Are you sure to delete this address?',
     });
+    this.router.navigateByUrl(
+      `/dashboard/customers/customer-address/${this.selectedCustomerId}`
+    );
   }
 
   removeAddress() {
