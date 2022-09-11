@@ -17,11 +17,12 @@
   </div>
 
   <app-main-layout [layoutTitle]="'Contact Medium'">
-    <p class="text-white mx-5 my-3 subtitle-concact-medium">Update Customer Contact Medium</p>
+    <p class="text-white mx-5 my-3 subtitle-concact-medium">
+      Update Customer Contact Medium
+    </p>
     <div class="p-5"></div>
 
     <div class="e-customer-content">
-
       <div class="d-flex justify-content-center">
         <form
           *ngIf="updateCustomerContactForm"
@@ -49,7 +50,9 @@
                 </div>
                 <small
                   *ngIf="
-                    isShow && updateCustomerContactForm.controls['email'].errors && emailtrial.value.length !=0
+                    isShow &&
+                    updateCustomerContactForm.controls['email'].errors &&
+                    emailtrial.value.length != 0
                   "
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 250px"
@@ -76,7 +79,7 @@
                     type="text"
                     etiyaInput="dark"
                     class="e-contact-input"
-                    onKeyPress="if(this.value.length==13) return false;"
+                    onKeyPress="if(this.value.length==11) return false;"
                     formControlName="homePhone"
                     [ngClass]="{
                       'invalid-input':
@@ -100,7 +103,7 @@
                     disabled
                   />
                   <input
-                  #mobiletrial
+                    #mobiletrial
                     style="max-width: 249px"
                     max="9999999999"
                     min="1000000000"
@@ -121,7 +124,8 @@
                 <small
                   *ngIf="
                     isShow &&
-                    updateCustomerContactForm.controls['mobilePhone'].errors && mobiletrial.value.length !=0
+                    updateCustomerContactForm.controls['mobilePhone'].errors &&
+                    mobiletrial.value.length != 0
                   "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
@@ -168,16 +172,15 @@
           </div>
           <small
             *ngIf="
-
               emailtrial.value.length == 0 || mobiletrial.value.length == 0
             "
             class="p-error block ng-invalid ng-dirty"
             style="color: red; margin-left: 250px"
           >
-          Mandatory fields can not left blank!
+            Mandatory fields can not left blank!
           </small>
-          <div class="d-flex justify-content-center mt-5">
-            <div style="width: 1125px" class="row p-0 pt-4">
+          <div class="d-flex justify-content-center">
+            <div style="width: 1125px" class="row p-0">
               <div class="col-6 d-flex justify-content-lg-start">
                 <button etiyaButton="clear" (click)="cancelChanges()">
                   CANCEL
