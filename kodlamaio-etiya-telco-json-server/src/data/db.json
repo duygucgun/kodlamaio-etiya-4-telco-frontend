@@ -754,7 +754,18 @@
           "street": "Fieldstone",
           "flatNumber": 11,
           "description": "7 Brown Hill",
-          "isMain": true
+          "isMain": false
+        },
+        {
+          "city": {
+            "id": 2,
+            "name": "Los Angeles"
+          },
+          "street": "daaa",
+          "flatNumber": "dadad",
+          "description": "adadada",
+          "isMain": true,
+          "id": 4328
         }
       ],
       "contactMedium": {

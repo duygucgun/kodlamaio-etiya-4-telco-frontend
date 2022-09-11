@@ -7,7 +7,7 @@
   box-sizing: border-box;
   margin-left: 60px;
   width: 1125px;
-  height: 220px;
+
   margin-left: 120px;
   background: rgba(13, 43, 80, 0.7);
   border: 3px solid #f58220;
@@ -83,7 +83,6 @@ small {
   font-size: 15px !important;
 }
 .subtitle-concact-medium {
-  
   height: 33px;
   margin-left: 62px;
   font-family: 'Anybody';
