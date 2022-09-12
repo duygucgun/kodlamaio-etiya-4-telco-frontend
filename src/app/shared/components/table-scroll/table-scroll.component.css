@@ -3,7 +3,8 @@
   border: 1px solid #f58220 !important;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-align: center;
-  width: 80%;
+  width: 95%;
+  margin: auto;
 }
 ::ng-deep .table.e-table .table-title,
 ::ng-deep .table-body {

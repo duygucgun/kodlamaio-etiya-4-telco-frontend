@@ -167,9 +167,9 @@
                 <app-table-scroll class="e-table">
                   <thead>
                     <tr class="table-title">
-                      <th>Campaign ID</th>
-                      <th>Prod Offer ID</th>
-                      <th>Prod Offer Name</th>
+                      <th class="col-2">Campaign ID</th>
+                      <th class="col-2">Prod Offer ID</th>
+                      <th class="col-8">Prod Offer Name</th>
                     </tr>
                   </thead>
                   <tbody class="table-body">
@@ -178,9 +178,9 @@
                       (click)="addBasket(campaignOffer)"
                       [ngClass]="{ selected: isSelected(campaignOffer) }"
                     >
-                      <td>{{ campaignOffer.type.id }}</td>
-                      <td>{{ campaignOffer.id }}</td>
-                      <td>
+                      <td class="col-2">{{ campaignOffer.type.id }}</td>
+                      <td class="col-2">{{ campaignOffer.id }}</td>
+                      <td class="col-8">
                         <span *ngIf="isSelected(campaignOffer)"
                           >{{ getOfferCount(campaignOffer) }}x</span
                         >
@@ -205,7 +205,9 @@
         </div>
       </div>
       <div class="row e-buttons">
-        <div class="col-8 d-flex justify-content-end align-items-center">
+        <div
+          class="col-8 d-flex justify-content-end align-items-center add-basket-button"
+        >
           <button
             etiyaButton="accordion-body"
             (click)="saveBasket()"
@@ -214,7 +216,9 @@
             Add Basket
           </button>
         </div>
-        <div class="col-4 d-flex justify-content-end align-items-center">
+        <div
+          class="col-4 d-flex justify-content-end align-items-center next-button"
+        >
           <button
             etiyaButton="clear"
             [disabled]="!itemsInBasket"

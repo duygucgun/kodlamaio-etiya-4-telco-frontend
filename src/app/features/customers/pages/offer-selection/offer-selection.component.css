@@ -72,7 +72,6 @@
   font-size: 16px;
   line-height: 17px;
   color: #000000;
-  margin-right: 35px;
   margin-bottom: 20px;
 }
 
@@ -84,11 +83,10 @@
 /* ::ng-deep .e-tab{
   min-height: 540px !important;
 } */
-.e-offer-table {
+/* .e-offer-table {
   margin-left: 30px;
-}
+} */
 ::ng-deep .e-table {
-  width: 710px !important;
   height: 262px;
 }
 ::ng-deep .main-box {
@@ -97,4 +95,11 @@
 
 .selected {
   background-color: #1a4981;
+}
+
+.add-basket-button {
+  padding-right: 70px;
+}
+.next-button {
+  padding-right: 42px;
 }

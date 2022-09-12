@@ -12,12 +12,12 @@
 
 .e-configuration-product-container {
   background: rgba(13, 43, 80, 0.75);
-  border: 1px solid #f58220;
+  border: 1px solid #f5832070;
   border-radius: 9px;
 }
 
 .e-configuritaion-product-info {
-  border-bottom: 1px solid #f58220;
+  border-bottom: 1px solid #f5832070;
 }
 
 .e-confirugration-product-label {
@@ -52,7 +52,7 @@
 }
 
 .e-configuritaion-product-info2 {
-  border: 1px solid #f58220;
+  border: 1px solid #f5832070;
   padding: 10px;
   border-radius: 9px;
   background: rgba(13, 43, 80, 0.75);
@@ -61,9 +61,12 @@
   background-color: #1a4981;
 }
 .scroll-product {
-  height: 600px;
+  height: 380px;
   overflow-y: scroll;
-  border-color: #f58220;
+  border: 2px solid #f58220;
+  margin-right: 30px;
+  margin-top: 80px;
+  margin-bottom: 50px;
 }
 
 .scroll-product::-webkit-scrollbar {
