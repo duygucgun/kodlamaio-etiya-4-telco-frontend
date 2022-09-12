@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BillingAccount } from 'src/app/features/customers/models/billingAccount';
 import { Offer } from 'src/app/features/offers/models/offer';
 import { MessageService } from 'primeng/api';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class TableAccordionComponent implements OnInit {
   @Input() billingAccount!: BillingAccount;
   @Input() customerId!: number;
+  @Output() onBillingAccountDelete = new EventEmitter<BillingAccount>();
   customer!: Customer;
   billingAccountToDelete!: BillingAccount;
 
@@ -40,9 +41,7 @@ export class TableAccordionComponent implements OnInit {
             detail:
               'There is a product belonging to the account, this account cannot be deleted',
           });
-          setTimeout(() => {
-            this.messageService.clear();
-          }, 3000);
+          this.onBillingAccountDelete.emit(this.billingAccountToDelete);
         } else {
           this.messageService.clear();
           this.messageService.add({

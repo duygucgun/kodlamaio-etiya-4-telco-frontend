@@ -1,5 +1,4 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Product } from './../../models/product';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BillingAccount } from '../../models/billingAccount';
@@ -61,5 +60,10 @@ export class CustomerBillingAccountDetailComponent implements OnInit {
 
     event.preventDefault();
     return false;
+  }
+  onBillingAccDelete(accToDelete: BillingAccount) {
+    this.billingAccountList = this.billingAccountList.filter(
+      (c) => c.id != accToDelete.id
+    );
   }
 }

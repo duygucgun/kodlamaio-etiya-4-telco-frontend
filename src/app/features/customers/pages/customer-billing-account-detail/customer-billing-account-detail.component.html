@@ -38,6 +38,7 @@
       <ng-template *ngIf="filteredData" ngFor let-bill [ngForOf]="filteredData">
         <app-table-accordion
           [billingAccount]="bill"
+          (onBillingAccountDelete)="onBillingAccDelete($event)"
           [customerId]="selectedCustomerId"
         ></app-table-accordion>
       </ng-template>
