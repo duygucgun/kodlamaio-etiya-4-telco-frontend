@@ -76,8 +76,8 @@
                 <app-table-scroll class="e-table">
                   <thead>
                     <tr class="table-title">
-                      <th>Prod Offer ID</th>
-                      <th>Prod Offer Name</th>
+                      <th class="col-5">Prod Offer ID</th>
+                      <th class="col-7">Prod Offer Name</th>
                     </tr>
                   </thead>
                   <tbody class="table-body">
@@ -86,8 +86,8 @@
                       (click)="addBasket(catalogOffer)"
                       [ngClass]="{ selected: isSelected(catalogOffer) }"
                     >
-                      <td>{{ catalogOffer.id }}</td>
-                      <td>
+                      <td class="col-5">{{ catalogOffer.id }}</td>
+                      <td class="col-7">
                         <span *ngIf="isSelected(catalogOffer)"
                           >{{ getOfferCount(catalogOffer) }}x</span
                         >
