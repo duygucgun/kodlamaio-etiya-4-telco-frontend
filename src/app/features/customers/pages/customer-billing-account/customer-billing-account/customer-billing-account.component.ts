@@ -115,14 +115,22 @@ export class CustomerBillingAccountComponent implements OnInit {
     }
   }
 
+  goToPreviousPage() {
+    this.router.navigateByUrl(
+      '/dashboard/customers/customer-billing-account-detail/' +
+        this.selectedCustomerId
+    );
+  }
   add() {
     //this.billingAccount = this.accountForm.value;
     //this.billingAccount.addresses = this.billingAdress;
     if (this.accountForm.invalid) {
       this.isShown = true;
       this.isEmpty = true;
+      this.isValid = false;
       return;
     }
+    this.isValid = true;
     this.isEmpty = false;
     this.billingAccount = this.accountForm.value;
     this.billingAccount.addresses = this.billingAdress;
