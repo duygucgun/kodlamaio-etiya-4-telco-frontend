@@ -272,10 +272,10 @@
               <table class="e-table table table-bordered table-hidden">
                 <thead>
                   <tr class="table-title">
-                    <th>City</th>
-                    <th>Street Name</th>
-                    <th>House/Flat Number</th>
-                    <th>Address Description</th>
+                    <th class="col-4">City</th>
+                    <th class="col-2">Street Name</th>
+                    <th class="col-2">House/Flat Number</th>
+                    <th class="col-4">Address Description</th>
                   </tr>
                 </thead>
                 <tbody class="table-body">
@@ -295,7 +295,7 @@
                       [ngClass]="{ selection: isSelected(billingadr) }"
                       *ngFor="let billingadr of billingAdress"
                     >
-                      <th style="display: flex">
+                      <th class="" style="display: flex">
                         <input
                           *ngIf="billingAdress.length == 1"
                           [checked]="billingAdress.length == 1"
@@ -317,9 +317,11 @@
                           {{ billingadr.city.name }}
                         </div>
                       </th>
-                      <td>{{ billingadr.street }}</td>
-                      <td>{{ billingadr.flatNumber }}</td>
-                      <td>{{ billingadr.description }}</td>
+                      <td class="col-2">{{ billingadr.street }}</td>
+                      <td class="col-2">{{ billingadr.flatNumber }}</td>
+                      <td class="col-4" style="word-break: break-all">
+                        {{ billingadr.description }}
+                      </td>
                     </tr>
                   </ng-template>
                 </tbody>
@@ -333,8 +335,10 @@
         </div>
 
         <div class="d-flex justify-content-center">
-          <div class="row m-0 w-100">
-            <div class="col-12 col-lg-6 d-flex justify-content-lg-start">
+          <div class="row m-0 w-100 mt-3 mb-3">
+            <div
+              class="col-12 col-lg-6 d-flex justify-content-lg-start mt-3 mb-3"
+            >
               <button
                 etiyaButton="clear"
                 [routerLink]="
@@ -347,7 +351,9 @@
                 Previous
               </button>
             </div>
-            <div class="col-12 col-lg-6 d-flex justify-content-lg-end">
+            <div
+              class="col-12 col-lg-6 d-flex justify-content-lg-end align-items-center"
+            >
               <button
                 etiyaButton="clear"
                 [routerLink]="
@@ -366,8 +372,8 @@
       </div>
       <div *ngIf="isShown == true">
         <form *ngIf="addressForm" [formGroup]="addressForm">
-          <div class="row">
-            <div class="col-12 col-xl-5">
+          <div class="row form-cont">
+            <div class="col-12 col-xl-6">
               <div class="row e-address-input">
                 <div class="col-12 col-lg-4 e-address-col-center">
                   <label for="city">City<span class="e-star">*</span> </label>
@@ -395,7 +401,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-xl-7">
+            <div class="col-12 col-xl-6">
               <div class="row e-address-input">
                 <div class="col-12 col-lg-4 e-address-col-center">
                   <label for="flatNumber"
@@ -416,7 +422,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-xl-5">
+            <div class="col-12 col-xl-6">
               <div class="row e-address-input">
                 <div class="col-12 col-lg-4 e-address-col-center">
                   <label for="street"
@@ -438,8 +444,8 @@
             </div>
             <div class="col-12">
               <div class="row mb-1">
-                <div class="col-12 e-address-col-center">
-                  <label for="address-description"
+                <div class="col-12 e-address-col-center text-center">
+                  <label for="address-description "
                     >Address Description<span class="e-star">*</span>
                   </label>
                 </div>
@@ -467,7 +473,7 @@
                   "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 400px; margin-top: 5px"
+                  style="color: red; margin-left: 480px; margin-top: 5px"
                 >
                   Requirements field can not be left blank
                 </small>

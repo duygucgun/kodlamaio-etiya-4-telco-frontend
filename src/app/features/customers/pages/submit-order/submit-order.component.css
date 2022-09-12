@@ -24,6 +24,22 @@
   background: rgba(6, 31, 62, 0.8);
   border: 1px solid #f58220;
   border-radius: 3px;
+  overflow-y: scroll;
+}
+.order-items::-webkit-scrollbar {
+  width: 18px;
+}
+
+.order-items::-webkit-scrollbar-track {
+  background: #1a4981;
+}
+
+.order-items::-webkit-scrollbar-thumb {
+  background: #f58220;
+}
+
+.order-items::-webkit-scrollbar-thumb:hover {
+  background: #f58220;
 }
 .order-items span {
   width: 93px;
