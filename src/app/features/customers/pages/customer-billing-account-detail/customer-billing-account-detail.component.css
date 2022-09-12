@@ -42,11 +42,3 @@
 .selected {
   opacity: 0.7;
 }
-.pagenation {
-  position: absolute;
-  bottom: 0;
-  color: #fff;
-}
-.pagenation span {
-  cursor: pointer;
-}
