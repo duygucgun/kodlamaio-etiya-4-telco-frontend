@@ -21,7 +21,7 @@ export class CustomerBillingAccountComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   billingAccount!: BillingAccount;
-
+  isEmpty: boolean = false;
   billingAdress: Address[] = [];
   isValid: boolean = false;
   isShownError: boolean = false;
@@ -120,9 +120,16 @@ export class CustomerBillingAccountComponent implements OnInit {
     //this.billingAccount.addresses = this.billingAdress;
     if (this.accountForm.invalid) {
       this.isShown = true;
+      this.isEmpty = true;
       return;
     }
-
+    this.isEmpty = false;
+    this.billingAccount = this.accountForm.value;
+    this.billingAccount.addresses = this.billingAdress;
+    this.billingAccount.status = 'active';
+    this.billingAccount.accountNumber = String(
+      Math.floor(Math.random() * 1000000000)
+    );
     let newBillingAccount: BillingAccount = {
       ...this.accountForm.value,
       addresses: [...this.billingAdress, this.addresses],

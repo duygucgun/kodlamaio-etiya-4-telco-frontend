@@ -61,39 +61,73 @@ export class TableAccordionComponent implements OnInit {
 
   productDetail(billingAccount: BillingAccount, offer: Offer) {
     if (offer.type.typeName == 'campaign') {
-      let cnAddress = billingAccount.addresses.toString();
-      let cnProdOfferId = offer.id.toString();
-      let cnProdOfferName = offer.name;
-      let cnCampaignId = offer.type.id.toString();
+      let campaignProdOfferId = offer.id.toString();
+      let campaignProdOfferName = offer.name;
+      let campaignId = offer.type.id.toString();
+      let campaignAddressDetail: any = [];
+      billingAccount.addresses.forEach(
+        (data) => (campaignAddressDetail = data)
+      );
       this.messageService.add({
-        key: 'okey',
+        key: 'product-detail',
         sticky: true,
         severity: 'warn',
-        detail:
-          'ProdOfferId :' +
-          cnProdOfferId +
-          '                ' +
-          'ProdOfferName :' +
-          cnProdOfferName +
-          '   ' +
-          'CampaignId : ' +
-          cnCampaignId,
+        detail: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" >
+                        <tr class="table-header">
+                        <th class="col-2">Campaign ID</th>
+                            <th class="col-2">Product Offer ID</th>
+                            <th class="col-2">Product Offer Name</th>
+                            <th class="col-2">City</th>
+                            <th class="col-2">Address Detail</th>
+                        </tr>
+                        <tr  class="active">
+                            <td>${campaignId}</td>
+                            <td>${campaignProdOfferId}</td>
+                            <td>${campaignProdOfferName}</td>
+                            <td>${campaignAddressDetail.city.name}</td>
+                            <td>${campaignAddressDetail.description}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+      `,
       });
     } else if (offer.type.typeName == 'catalog') {
-      let cgAddress = billingAccount.addresses;
-      let cgProdOfferId = offer.id;
-      let cgProdOfferName = offer.name;
+      let catalogProdOfferId = offer.id;
+      let catalogProdOfferName = offer.name;
+      let catalogAddressDetail: any = [];
+      billingAccount.addresses.forEach((data) => (catalogAddressDetail = data));
       this.messageService.add({
-        key: 'okey',
+        key: 'product-detail',
         sticky: true,
         severity: 'warn',
-        detail:
-          'ProdOfferId:' +
-          cgProdOfferId +
-          '                ' +
-          'ProdOfferName:' +
-          cgProdOfferName +
-          '   ',
+        detail: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" >
+                        <tr class="table-header">
+                            <th class="col-2">Product Offer ID</th>
+                            <th class="col-2">Product Offer Name</th>
+                            <th class="col-2">City</th>
+                            <th class="col-2">Address Detail</th>
+                        </tr>
+                        <tr  class="active">
+                            <td>${catalogProdOfferId}</td>
+                            <td>${catalogProdOfferName}</td>
+                            <td>${catalogAddressDetail.city.name}</td>
+                            <td>${catalogAddressDetail.description}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        `,
       });
     }
   }

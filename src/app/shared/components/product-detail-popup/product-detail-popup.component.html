@@ -1,0 +1,19 @@
+<p-toast
+  position="center"
+  key="product-detail"
+  (onClose)="onConfirm()"
+  [baseZIndex]="5000"
+>
+  <ng-template let-message pTemplate="message">
+    <div [innerHTML]="message.detail"></div>
+    <div class="d-flex justify-content-center">
+      <button
+        type="button"
+        pButton
+        (click)="onConfirm()"
+        label="Okay"
+        class="p-button-success"
+      ></button>
+    </div>
+  </ng-template>
+</p-toast>
