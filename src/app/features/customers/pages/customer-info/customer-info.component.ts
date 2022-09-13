@@ -40,7 +40,7 @@ export class CustomerInfoComponent implements OnInit {
             sticky: true,
             severity: 'warn',
             detail:
-              'Since the customer has active products, the customer cannot be deleted. Are you sure delete this customer?',
+              'Since the customer has active products, the customer cannot be deleted.',
           });
         } else {
           this.messageService.clear();

@@ -196,6 +196,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="nationalityId"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
                         isShow &&
@@ -203,16 +204,16 @@
                     }"
                   />
                 </div>
-                <small
+                <!-- <small
                   *ngIf="
                   isShow && updateCustomerForm.controls['nationalityId'].errors?.['required']
                   "
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 200px; margin-top: -20px"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
                 >
                   Nationality ID cannot be less than 11 digits!
-                </small>
+                </small> -->
                 <small
                   *ngIf="
                     isShow && updateCustomerForm.controls['nationalityId'].errors?.['pattern']
@@ -220,6 +221,7 @@
                   id="nationalityId-help"
                   class="p-error block ng-invalid ng-dirty"
                   etiyaError="error-text"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
                 >
                   You must entered 11 digits
                 </small>
