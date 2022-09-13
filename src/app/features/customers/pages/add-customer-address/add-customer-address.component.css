@@ -107,11 +107,11 @@
 }
 
 .invalid-input {
-  border-color: red!important;
+  border-color: red !important;
   color: red !important;
 }
 
-small{
-  font-weight: 700!important;
-  font-size: 20px!important;
+small {
+  font-weight: 700 !important;
+  font-size: 20px !important;
 }
